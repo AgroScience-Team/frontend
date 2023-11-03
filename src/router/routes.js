@@ -50,6 +50,16 @@ const routes = [
         name: "settings",
         component: () => import("pages/SettingsPage.vue"),
       },
+      {
+        path: "worker_info",
+        name: "worker_info",
+        component: () => import("pages/Worker_info_page.vue")
+      },
+      {
+        path: "organization_info",
+        name: "organization_info",
+        component: () => import("pages/Organization_info_page.vue")
+      },
     ],
   },
 
