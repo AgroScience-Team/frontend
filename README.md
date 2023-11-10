@@ -17,7 +17,7 @@ docker-compose build
 ```
 5. Запуск собранных сервисов из конфигурационного файла:
 ```sh
-docker-compose build -d
+docker-compose up -d
 ```
 6. Перейти на сайт
 http://localhost:9000/#/   
