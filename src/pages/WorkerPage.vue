@@ -1,3 +1,3 @@
 <template>
-    <div>ТУТ workers</div>
+  <div>ТУТ workers</div>
 </template>
