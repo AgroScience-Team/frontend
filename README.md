@@ -1,41 +1,28 @@
-# DigitalTwin (quasar-project)
+# DigitalTwin Frontend
 
-A Quasar Project
+## Как развернуть приложение для разработки?
 
-## Install the dependencies
-```bash
-yarn
-# or
-npm install
+1. Установить [docker](https://docs.docker.com/install/overview/) и [docker-compose](https://docs.docker.com/compose/install/)
+   
+2. На ubuntu лучше настроить [использование докера без sudo](https://askubuntu.com/questions/477551/how-can-i-use-docker-without-sudo)
+
+3. Загрузить проект из репозитория
+
+```sh
+git clone git@github.com:AgroScience-Team/frontend.git
+``` 
+4. Для сборки сервисов, описанных в конфигурационных файлах:
+```sh
+docker-compose build
 ```
-
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
-```bash
-quasar dev
+5. Запуск собранных сервисов из конфигурационного файла:
+```sh
+docker-compose build -d
 ```
-
-
-### Lint the files
-```bash
-yarn lint
-# or
-npm run lint
-```
-
-
-### Format the files
-```bash
-yarn format
-# or
-npm run format
-```
-
-
-
-### Build the app for production
-```bash
-quasar build
-```
-
-### Customize the configuration
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
+6. Перейти на сайт
+http://localhost:9000/#/   
+ 
+7. Чтобы завершить работу приложения в командной строке: 
+```sh
+docker-compose down  
+``` 
