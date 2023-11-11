@@ -1,7 +1,4 @@
 <template>
-    <q-layout view="hHh lpR fFf">
-      <q-page-container>
-        <title-info title="Организация"/>
           <div class="q-pa-md">
               <q-table
                   class="my-sticky-colum-table"
@@ -14,18 +11,10 @@
                   hide-bottom
               />
           </div>
-      </q-page-container>
-    </q-layout>
   </template>
       
   <script>
-  import TitleInfo from 'components/Title_info.vue';
-  
   export default {
-    name: 'InfoWorker',
-    components: {
-      TitleInfo
-    },
     data() {
       return {
         information: [
