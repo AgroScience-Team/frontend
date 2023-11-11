@@ -60,6 +60,11 @@ const routes = [
         name: "organization_info",
         component: () => import("pages/Organization_info_page.vue")
       },
+      {
+        path: "filed_information",
+        name: "filed_information",
+        component: () => import("pages/Filed_info_page.vue")
+      }
     ],
   },
 
