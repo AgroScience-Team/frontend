@@ -4,7 +4,8 @@
       <q-toolbar>
         <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" color="primary" />
 
-        <q-toolbar-title>
+        <q-toolbar-title class="my-title">
+          {{ pageTitle }}
         </q-toolbar-title>
 
         <q-avatar icon="account_circle" size="xl" font-size="50px" text-color="primary"></q-avatar>
@@ -12,14 +13,9 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer :model-value="true" show-if-above :mini="miniOpen" bordered class="bg-primary text-white" :width="240">
+    <q-drawer :model-value="true" show-if-above :mini="miniOpen" bordered class="bg-primary text-white" :width="240"
+      behavior="desktop">
       <q-list>
-        <!-- <q-item-label
-          header
-        >
-          Essential Links
-        </q-item-label> -->
-
         <q-item>
           <q-item-section>
             <q-item-label class="label">Agroprom</q-item-label>
@@ -37,8 +33,10 @@
 </template>
 
 <script>
-import { ref } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import EssentialLink from 'components/EssentialLink.vue'
+import { useRoute } from 'vue-router'
+
 
 const linksList = [
   {
@@ -85,16 +83,44 @@ export default {
     EssentialLink
   },
 
+
   setup() {
+    const route = useRoute();
     const miniOpen = ref(false);
+    const pageTitle = ref('');
+
+    const setPageTitle = (linkTitle) => {
+      pageTitle.value = linkTitle;
+      document.title = linkTitle; // Обновляем заголовок страницы
+    };
+
+    onMounted(() => {
+      updatePageTitle();
+    });
+
+    watch(() => route.path, () => {
+      updatePageTitle();
+    });
+
+    const updatePageTitle = () => {
+      const foundLink = linksList.find(link => link.link === route.path);
+      if (foundLink) {
+        if (foundLink.title === 'Сотрудники') {
+          setPageTitle('Мои сотрудники');
+        } else {
+          setPageTitle(foundLink.title);
+        }
+      }
+    };
 
     return {
       essentialLinks: linksList,
       miniOpen,
+      pageTitle,
       toggleLeftDrawer() {
         miniOpen.value = !miniOpen.value;
       }
-    }
+    };
   }
 }
 </script>
@@ -104,5 +130,9 @@ export default {
 .label {
   font-size: 22px;
   font-family: Arial;
+}
+
+.my-title {
+  color: #151C28;
 }
 </style>
