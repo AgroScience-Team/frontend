@@ -61,9 +61,9 @@ const routes = [
         component: () => import("pages/Organization_info_page.vue")
       },
       {
-        path: "filed_information",
-        name: "filed_information",
-        component: () => import("pages/Filed_info_page.vue")
+        path: "field_information",
+        name: "field_information",
+        component: () => import("pages/Field_info_page.vue")
       }
     ],
   },
