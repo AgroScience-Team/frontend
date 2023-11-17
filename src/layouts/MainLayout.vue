@@ -23,7 +23,7 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer :model-value="true" show-if-above :mini="miniOpen" bordered class="bg-primary text-white" :width="240">
+    <q-drawer :model-value="miniOpen" bordered class="bg-primary text-white" :width="240">
       <q-list>
         <!-- <q-item-label
           header
