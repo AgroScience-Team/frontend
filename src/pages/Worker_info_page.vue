@@ -1,7 +1,4 @@
 <template>
-    <q-layout view="hHh lpR fFf">
-      <q-page-container>
-        <title-info title="Работник"/>
           <div class="q-pa-md">
               <q-table
                   class="differnet-color"
@@ -14,18 +11,10 @@
                   hide-bottom
               />
           </div>
-      </q-page-container>
-    </q-layout>
   </template>
     
   <script>
-  import TitleInfo from 'components/Title_info.vue';
-  
   export default {
-    name: 'TitleWorker',
-    components: {
-      TitleInfo
-    },
     data() {
       return {
         information: [

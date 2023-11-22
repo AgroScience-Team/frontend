@@ -7,12 +7,23 @@
         <q-toolbar-title>
         </q-toolbar-title>
 
-        <q-avatar icon="account_circle" size="xl" font-size="50px" text-color="primary"></q-avatar>
+        <q-avatar icon="account_circle" size="xl" font-size="50px" text-color="primary">
+          <q-menu>
+            <q-list>
+              <q-item clickable v-close-popup @click="goToWoker">
+                <q-item-section>Работник</q-item-section>
+              </q-item>
+              <q-item clickable v-close-popup @click="goToOrganization">
+                <q-item-section>Организация</q-item-section>
+              </q-item>
+            </q-list>
+          </q-menu>
+        </q-avatar>
 
       </q-toolbar>
     </q-header>
 
-    <q-drawer :model-value="true" show-if-above :mini="miniOpen" bordered class="bg-primary text-white" :width="240">
+    <q-drawer :model-value="miniOpen" bordered class="bg-primary text-white" :width="240">
       <q-list>
         <!-- <q-item-label
           header
@@ -83,6 +94,15 @@ export default {
 
   components: {
     EssentialLink
+  },
+
+  methods: {
+    goToWoker(){
+      this.$router.push('/worker_info');
+    },
+    goToOrganization(){
+      this.$router.push('/organization_info');
+    }
   },
 
   setup() {
