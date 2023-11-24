@@ -67,6 +67,8 @@ import { debounce } from 'lodash-es';
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet/dist/leaflet.js";
+import axios from 'axios';
+
 Chart.register(...registerables);
 
 export default {
@@ -77,19 +79,14 @@ export default {
         const isBarChart = ref(true);
         
         //сulture
-        const seedData = reactive([
-            { start_date: '2020-01-01', 
-              end_date: '2020-01-01', 
-              culture: 'Пшеница'
-            }
-        ]);
-
-        //temperature
+        const seedData = reactive([]);
         const seedColums = reactive([
             { name: 'start_date', required: true, label: 'Дата Начала', align: 'center', field: 'start_date'},
             { name: 'end_date', required: true, label: 'Дата Завершения', align: 'center', field: 'end_date'},
             { name: 'culture', required: true, label: 'Культура', align: 'center', field: 'culture'}
         ]);
+
+
         const chartData = reactive({
             labels: ['9/16', '9/17', '9/18', '9/19', '9/20', '9/21', '9/22' ],
             datasets: [{
@@ -154,7 +151,7 @@ export default {
         //map
         const map = ref(null);
 
-        onMounted(() => {
+        onMounted(async () => {
         // Создание карты
         map.value = L.map("map").setView([59.420161, 30.01832], 15);
 
@@ -162,6 +159,32 @@ export default {
         L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
             attribution: "Map data &copy; OpenStreetMap contributors",
         }).addTo(map.value);
+
+        try {
+            const response = await axios.get('http://localhost:8002/api/v1/fields?fieldId=1', {
+                headers: {
+                    'Authorization': `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDA3NDM0NzMsImV4cCI6MTcwMDc0NzA3Mywic3ViIjoiMiIsInJvbGUiOiJvcmdhbml6YXRpb24iLCJlbWFpbCI6IjEyMyIsIm9yZyI6Mn0.l6llNZJHN8g3e9c4FZB7ziQPD02UyJTSIqqArziP0s0'}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+            const data = response.data;
+            console.log(response.data);
+            
+            if (data) {
+                seedData.push({
+                    start_date: data.acitivityStart,
+                    end_date: data.activityEnd,
+                    culture: data.name
+                })
+            }
+
+            data.geom.coordinates.forEach(coord => {
+                L.marker([coord.latitude, coord.longtitude]).addTo(map.value)
+                  .bindPopup(`<strong>${data.name}</strong><br>${data.description}`);
+            });
+        } catch (error) {
+            console.error('Wrong Api', error);
+        }
         });
 
         return { 
