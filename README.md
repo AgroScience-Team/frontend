@@ -20,9 +20,10 @@ docker-compose build
 docker-compose up -d
 ```
 6. Перейти на сайт
-http://localhost:9000/#/   
+http://localhost:9000/#/field_information  
  
 7. Чтобы завершить работу приложения в командной строке: 
 ```sh
 docker-compose down  
-``` 
+```
+8. If successfully get api, Посев should looks like at least 1 row of data.
