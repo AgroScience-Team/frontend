@@ -89,6 +89,22 @@ module.exports = configure(function (/* ctx */) {
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
     devServer: {
       // https: true
+      proxy: {
+        '/api/profiles': { 
+          target: 'http://profiles-service:8001',
+          changeOrigin: true,
+          pathRewrite: {
+            '^/api/profiles': ''
+          }
+        },
+        '/api': {  
+          target: 'http://fields-service:8002',
+          changeOrigin: true,
+          pathRewrite: {
+            '^/api': ''
+          }
+        }
+      },
       open: false // opens browser window automatically
     },
 
