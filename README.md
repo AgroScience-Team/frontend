@@ -1,29 +1,11 @@
-# DigitalTwin Frontend
-
-## Как развернуть приложение для разработки?
-
-1. Установить [docker](https://docs.docker.com/install/overview/) и [docker-compose](https://docs.docker.com/compose/install/)
-   
-2. На ubuntu лучше настроить [использование докера без sudo](https://askubuntu.com/questions/477551/how-can-i-use-docker-without-sudo)
-
-3. Загрузить проект из репозитория
-
-```sh
-git clone git@github.com:AgroScience-Team/frontend.git
-``` 
-4. Для сборки сервисов, описанных в конфигурационных файлах:
-```sh
+1.Build iamges.
 docker-compose build
-```
-5. Запуск собранных сервисов из конфигурационного файла:
-```sh
+2.Start container.
 docker-compose up -d
-```
-6. Перейти на сайт
-http://localhost:9000/#/field_information  
- 
-7. Чтобы завершить работу приложения в командной строке: 
-```sh
-docker-compose down  
-```
-8. If successfully get api, Посев should looks like at least 1 row of data.
+3.Port is 9000
+4.For testing, you should post data firstly. Every page has special endpoit.
+  For example, filed_information page connect to filedId=1.
+
+PS:
+http://localhost:9000/#/rotation has not get data yet.
+http://localhost:9000/#/field_information  is missing meteoData.
