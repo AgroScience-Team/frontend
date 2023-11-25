@@ -3,9 +3,9 @@
               <q-table
                   class="differnet-color"
                   flat bordered
-                  :rows="information"
-                  :columns="columns"
-                  row-key="label"
+                  :rows="workerData"
+                  :columns="workerColumns"
+                  row-key="id"
                   v-model:pagination="pagination"
                   hide-header
                   hide-bottom
@@ -14,41 +14,52 @@
   </template>
     
   <script>
+  import { onMounted, reactive } from 'vue';
+  import axios from 'axios';
+
   export default {
-    data() {
-      return {
-        information: [
-          { label: 'ID', value: '1' },
-          { label: 'User ID', value: '13'},
-          { label: 'Organization ID', value: '343'},
-          { label: 'Date of birth', value: '2023-11-01'},
-          { label: 'Name', value: 'John'},
-          { label: 'Surname', value: 'Doe'},
-          { label: 'Patronymic', value: 'ABCDEFG'},
-          { label: 'Date of birth', value: '2023-11-01'},
-          { label: 'Created at', value: '2023-11-01'},
-        ],
-        columns: [
-          { name: 'label', 
-            required: true, 
-            label: 'Keyword', 
-            align: 'center', 
-            field: 'label', 
-            sortable: false,
-            style: 'width: 500px'
-          },
-          { name: 'value', 
-            label: 'value', 
-            align: 'left', 
-            field: 'value', 
-            sortable: false 
-          },
-        ],
+    name: 'Worker_info_page',
+    setup() {
+      const workerData = reactive([]);
+      const workerColumns = reactive([
+        { name: 'key', field: 'key', align: 'center', style: 'width: 500px'},
+        { name: 'value', field: 'value', align: 'left'}
+      ]);
+
+      onMounted(async () => {
+        const response = await axios.get('/api/profiles/workers?user_id=3', {
+          headers: {
+                        'Authorization': `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDA3NDM0NzMsImV4cCI6MTcwMDc0NzA3Mywic3ViIjoiMiIsInJvbGUiOiJvcmdhbml6YXRpb24iLCJlbWFpbCI6IjEyMyIsIm9yZyI6Mn0.l6llNZJHN8g3e9c4FZB7ziQPD02UyJTSIqqArziP0s0'}`,
+                        'Content-Type': 'application/json'
+                    }
+        });
+        const data = response.data;
+        console.log(response.data);
+
+        try {
+          if(data) {
+            workerData.push(
+              { key: 'ID', value: data.id },
+              { key: 'User ID', value: data.user_id },
+              { key: 'Name', value: data.name },
+              { key: 'Surname', value: data.surname },
+              { key: 'Patronymic', value: data.patronymic },
+              { key: 'Date of birth', value: data.date_of_birth },
+              { key: 'Phone Number', value: data.phone_number },
+            )
+          }
+        } catch (error) {
+          console.error('Wrong Api', error);
+        };
+      });
+    return {
+        workerData,
+        workerColumns,
         pagination: {
           rowsPerPage: 10
         }
-      };
-    },
+      }
+    }
   }
   </script>
   

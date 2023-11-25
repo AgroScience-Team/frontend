@@ -17,14 +17,30 @@
                 <div class="text-h6">Дата загрузки фйла</div>
                 <div class="text-center q-mt-lg"></div>
                 <div class="text-h4 clickable-text" @click="fetchSoilComposition">Агрохимический состав почвы</div>
-                    <q-table
-                        :columns="compositionColumns"
-                        :rows="compositionData"
-                        row-key="id"
-                        flat bordered
-                        hide-bottom
-                        v-if="isTableVisible"
-                    />
+                <q-table
+                    v-if="isTableVisible"
+                    flat bordered
+                    :rows="soilData"
+                    :columns="soilColumns"
+                    row-key="id"
+                    hide-bottom
+                />
+                <q-table
+                    v-if="isTableVisible"
+                    flat bordered
+                    :rows="soilData2"
+                    :columns="soilColumns2"
+                    row-key="id"
+                    hide-bottom
+                />
+                <q-table
+                    v-if="isTableVisible"
+                    flat bordered
+                    :rows="soilData3"
+                    :columns="soilColumns3"
+                    row-key="id"
+                    hide-bottom
+                />
             </div>
         </div>
 
@@ -127,64 +143,97 @@ export default {
         }, 500);
 
         //button showing chemical element
-        const compositionData = ref([]);
-        const compositionColumns = ref([
-            { name: 'element', label: 'Элемент', field: 'element', align: 'left'},
+        const soilData = reactive([]);
+        const soilData2 = reactive([]);
+        const soilData3 = reactive([]);
+
+        const soilColumns = reactive([
+            { name: 'ph', label: 'ph', field: 'ph', align: 'center'},
+            { name: 'sampleDate', label: 'sampleDate', field: 'sampleDate', align: 'center'},
+            { name: 'organicMatter', label: 'organicMatter', field: 'organicMatter', align: 'center'},
+            { name: 'mobileP', label: 'mobileP', field: 'mobileP', align: 'center'},
+            { name: 'mobileK', label: 'mobileK', field: 'mobileK', align: 'center'},]);
+        const soilColumns2 = reactive([
+            { name: 'mobileS', label: 'mobileS', field: 'mobileS', align: 'center'},
+            { name: 'nitrateN', label: 'nitrateN', field: 'nitrateN', align: 'center'},
+            { name: 'ammoniumN', label: 'ammoniumN', field: 'ammoniumN', align: 'center'},
+            { name: 'hydrolyticAcidity', label: 'hydrolyticAcidity', field: 'hydrolyticAcidity', align: 'center'},
+            { name: 'caExchange', label: 'caExchange', field: 'caExchange', align: 'center'},]);
+        const soilColumns3 = reactive([
+            { name: 'mgExchange', label: 'mgExchange', field: 'mgExchange', align: 'center'},
+            { name: 'b', label: 'b', field: 'b', align: 'center'},
+            { name: 'co', label: 'co', field: 'co', align: 'center'},
+            { name: 'mn', label: 'mn', field: 'mn', align: 'center'},
+            { name: 'zn', label: 'zn', field: 'zn', align: 'center'},
+
         ]);
 
         const fetchSoilComposition = async () => {
             isTableVisible.value = !isTableVisible.value;
-            if (isTableVisible.value && compositionData.value.length === 0) {
-                try {
-                    const url = "backend data";
-                    const response = await fetch(url);
-                    const data = await response.json();
-                    compositionData.value = data;
-                } catch (error) {
-                    console.error("Error fetching soil composition:", error);
-                }
-            }
         };
-
-        onMounted(initChart);
 
         //map
         const map = ref(null);
 
         onMounted(async () => {
-        // Создание карты
-        map.value = L.map("map").setView([59.420161, 30.01832], 15);
 
-        // Добавление тайлового слоя
-        L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-            attribution: "Map data &copy; OpenStreetMap contributors",
-        }).addTo(map.value);
+            initChart()
+            // Создание карты
+            map.value = L.map("map").setView([59.420161, 30.01832], 15);
 
-        try {
-            const response = await axios.get('http://localhost:8002/api/v1/fields?fieldId=1', {
-                headers: {
-                    'Authorization': `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDA3NDM0NzMsImV4cCI6MTcwMDc0NzA3Mywic3ViIjoiMiIsInJvbGUiOiJvcmdhbml6YXRpb24iLCJlbWFpbCI6IjEyMyIsIm9yZyI6Mn0.l6llNZJHN8g3e9c4FZB7ziQPD02UyJTSIqqArziP0s0'}`,
-                    'Content-Type': 'application/json'
+            // Добавление тайлового слоя
+            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                attribution: "Map data &copy; OpenStreetMap contributors",
+            }).addTo(map.value);
+
+
+            const response = await axios.get('/api/v1/fields?fieldId=1', {
+                    headers: {
+                        'Authorization': `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDA3NDM0NzMsImV4cCI6MTcwMDc0NzA3Mywic3ViIjoiMiIsInJvbGUiOiJvcmdhbml6YXRpb24iLCJlbWFpbCI6IjEyMyIsIm9yZyI6Mn0.l6llNZJHN8g3e9c4FZB7ziQPD02UyJTSIqqArziP0s0'}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                const data = response.data;
+                console.log(response.data);
+
+
+            try {
+                if (data) {
+                    seedData.push({
+                        start_date: data.cropRotation.startDate,
+                        end_date: data.cropRotation.endDate,
+                        culture: data.cropRotation.crop.name
+                    })
+                    soilData.push({
+                        ph: data.soil.ph,
+                        sampleDate: data.soil.sampleDate,
+                        organicMatter: data.soil.organicMatter,
+                        mobileP: data.soil.mobileP,
+                        mobileK: data.soil.mobileK,
+                    })
+                    soilData2.push(
+                        {mobileS: data.soil.mobileS,
+                        nitrateN: data.soil.nitrateN,
+                        ammoniumN: data.soil.ammoniumN,
+                        hydrolyticAcidity: data.soil.hydrolyticAcidity,
+                        caExchange: data.soil.caExchange,
+                    })
+                    soilData3.push(
+                        {mgExchange: data.soil.mgExchange,
+                        b: data.soil.b,
+                        co: data.soil.co,
+                        mn: data.soil.mn,
+                        zn: data.soil.zn           
+                    })
                 }
-            });
-            const data = response.data;
-            console.log(response.data);
-            
-            if (data) {
-                seedData.push({
-                    start_date: data.acitivityStart,
-                    end_date: data.activityEnd,
-                    culture: data.name
-                })
-            }
 
-            data.geom.coordinates.forEach(coord => {
-                L.marker([coord.latitude, coord.longtitude]).addTo(map.value)
-                  .bindPopup(`<strong>${data.name}</strong><br>${data.description}`);
-            });
-        } catch (error) {
-            console.error('Wrong Api', error);
-        }
+                data.geom.coordinates.forEach(coord => {
+                    L.marker([coord.latitude, coord.longitude]).addTo(map.value)
+                    .bindPopup(`<strong>${data.cropRotation.crop.name}</strong><br>${data.cropRotation.description}`);
+                });
+            } catch (error) {
+                console.error('Wrong Api', error);
+            }
         });
 
         return { 
@@ -197,8 +246,12 @@ export default {
             isBarChart,
             initChart,
             toggleChart,
-            compositionColumns,
-            compositionData,
+            soilColumns,
+            soilData,
+            soilColumns2,
+            soilData2,
+            soilColumns3,
+            soilData3,
             fetchSoilComposition,
             isTableVisible,
         };

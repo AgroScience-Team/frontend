@@ -3,49 +3,66 @@
               <q-table
                   class="my-sticky-colum-table"
                   flat bordered
-                  :rows="information"
-                  :columns="columns"
-                  row-key="label"
+                  :rows="organizationData"
+                  :columns="organizationColumns"
+                  raw-key="id"
                   v-model:pagination="pagination"
-                  hide-header
                   hide-bottom
+                  hide-header
               />
           </div>
   </template>
       
   <script>
+  import { onMounted, reactive } from 'vue';
+  import axios from 'axios' ;
+
   export default {
-    data() {
-      return {
-        information: [
-          { label: 'ID', value: '5' },
-          { label: 'User ID', value: '7'},
-          { label: 'Name', value: 'John'},
-          { label: 'Created at', value: '2013-05-01'},
-          { label: 'Address', value: 'Street No.1'}
-        ],
-        columns: [
-          { name: 'label', 
-            required: true, 
-            label: 'Keyword', 
-            align: 'center', 
-            field: 'label', 
-            sortable: false,
-            style: 'width: 500px'
-          },
-          { name: 'value', 
-            label: 'value', 
-            align: 'left', 
-            field: 'value', 
-            sortable: false 
-          },
-        ],
+    name: 'Organization_info_page',
+    setup() {
+      const organizationData = reactive([]);
+      const organizationColumns = reactive([
+          { name: 'key',  field: 'key', align: 'center', style: 'width: 500px' },
+          { name: 'value', field: 'value', align: 'left' }
+      ]);
+
+      onMounted(async () => {
+        const response = await axios.get('/api/profiles/organizations?user_id=2', {
+          headers: {
+                        'Authorization': `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDA3NDM0NzMsImV4cCI6MTcwMDc0NzA3Mywic3ViIjoiMiIsInJvbGUiOiJvcmdhbml6YXRpb24iLCJlbWFpbCI6IjEyMyIsIm9yZyI6Mn0.l6llNZJHN8g3e9c4FZB7ziQPD02UyJTSIqqArziP0s0'}`,
+                        'Content-Type': 'application/json'
+                    }
+        });
+        const data = response.data;
+        console.log(response.data);
+
+        try {
+            if(data) {
+              organizationData.push(
+                {key: 'ID', value: data.id},
+                {key: 'User ID', value: data.user_id},
+                {key: 'Name', value: data.name},
+                {key: 'Description', value: data.description},
+                {key: 'City', value: data.city},
+                {key: 'Inn', value: data.inn},
+                {key: 'Phone Number', value: data.phone_number},
+                {key: 'Website', value: data.website},
+              )
+            }
+          } catch (error) {
+            console.error('Wrong Api', error);
+          };
+      });
+    return {
+        organizationData,
+        organizationColumns,
         pagination: {
           rowsPerPage: 10
         }
-      };
-    },
+      } 
+    }
   }
+
   </script>
   
   <style lang="scss">
