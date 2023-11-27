@@ -28,8 +28,6 @@
     <q-drawer :model-value="true" show-if-above :mini="miniOpen" bordered class="bg-primary text-white" :width="240"
       behavior="desktop">
 
-    <q-drawer :model-value="miniOpen" bordered class="bg-primary text-white" :width="240">
-
       <q-list>
         <q-item>
           <q-item-section>
@@ -100,10 +98,10 @@ export default {
 
 
   methods: {
-    goToWoker(){
+    goToWoker() {
       this.$router.push('/worker_info');
     },
-    goToOrganization(){
+    goToOrganization() {
       this.$router.push('/organization_info');
     }
   },
