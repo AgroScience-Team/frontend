@@ -27,9 +27,9 @@
       ]);
 
       onMounted(async () => {
-        const response = await axios.get('/api/profiles/organizations?user_id=2', {
+        const response = await axios.get('http://localhost:8080/api/profiles/organizations?user_id=1', {
           headers: {
-                        'Authorization': `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDA3NDM0NzMsImV4cCI6MTcwMDc0NzA3Mywic3ViIjoiMiIsInJvbGUiOiJvcmdhbml6YXRpb24iLCJlbWFpbCI6IjEyMyIsIm9yZyI6Mn0.l6llNZJHN8g3e9c4FZB7ziQPD02UyJTSIqqArziP0s0'}`,
+                        'Authorization': `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDEwOTIwNzAsImV4cCI6MTcwMTA5NTY3MCwic3ViIjoiMSIsInJvbGUiOiJvcmdhbml6YXRpb24iLCJlbWFpbCI6InRlc3RlbWFpbCIsIm9yZyI6MX0.czKkTjgG5Mc52t_qjI0H4pEmynntJbQG5mFJOmbTsgs'}`,
                         'Content-Type': 'application/json'
                     }
         });
