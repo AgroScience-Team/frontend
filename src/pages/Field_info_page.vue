@@ -9,6 +9,7 @@
                         row-key="id"
                         flat bordered
                         hide-bottom
+                        header-class="custom-header-font"
                     />
             </div>
             <div class="col-12 col-md-6 q-pl-md">
@@ -44,24 +45,24 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col-12 col-md-6" style="height: 400px;">
-                <div class="text-h4">Влажность</div>
-                    <div class="text-center">100%</div>
-                <div class="text-center q-mt-lg"></div>
+        <div class="col-12 col-md-6" style="height: 400px;">
+            
+            <div class="text-h4">Влажность</div>
+            <q-btn toogle-color="primary" @click="toggleHumidityChartType" label="Toggle" />
+            <canvas id="humidity-chart"></canvas>
 
-                <div class="text-h4">Ветер</div>
-                    <div class="text-center">1м/с</div>
-                <div class="text-center q-mt-lg"></div>
-                
-                <div class="text-h4">Температура</div>
-                    <div>
-                        <q-btn toogle-color="primary" @click="toggleChart" label="Переключить" />                       
-                    </div>
-                    <div>
-                        <canvas id="temperature-chart"></canvas>
-                    </div>
-            </div>
+            <div class="text-center q-mt-lg"></div>
+
+            <div class="text-h4">Ветер</div>
+            <q-btn toogle-color="primary" @click="togglePressureChartType" label="Toggle" />
+            <canvas id="pressure-chart"></canvas>
+
+            <div class="text-center q-mt-lg"></div>
+            
+            <div class="text-h4">Температура</div>
+            <q-btn toogle-color="primary" @click="toggleTemperatureChartType" label="Toggle" />                       
+            <canvas id="temperature-chart"></canvas>
+            
         </div>
 
         <div class="q-pa-md q-ml-auto">
@@ -77,7 +78,7 @@
 </template>
 
 <script>
-import { ref, onMounted, reactive, nextTick } from 'vue';
+import { ref, onMounted, reactive, onBeforeUnmount } from 'vue';
 import { Chart, registerables } from 'chart.js';
 import { debounce } from 'lodash-es';
 import L from "leaflet";
@@ -90,10 +91,18 @@ Chart.register(...registerables);
 export default {
     name: 'Filed_info_page',
     setup() {
+
         const isTableVisible = ref(false);
-        const chart = ref(null);
-        const isBarChart = ref(true);
-        
+
+        const isHumidityBarChart = ref(true);
+        const isPressureBarChart = ref(true);
+        const isTemperatureBarChart = ref(true);
+
+        const humidityChart = ref(null);
+        const pressureChart = ref(null);
+        const temperatureChart = ref(null);
+
+
         //сulture
         const seedData = reactive([]);
         const seedColums = reactive([
@@ -102,12 +111,33 @@ export default {
             { name: 'culture', required: true, label: 'Культура', align: 'center', field: 'culture'}
         ]);
 
+        const humidityChartData = reactive({
+            labels: [],
+            datasets: [{
+                label: 'Humidity', 
+                data: [],
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        });
 
-        const chartData = reactive({
-            labels: ['9/16', '9/17', '9/18', '9/19', '9/20', '9/21', '9/22' ],
+        const pressureChartData = reactive({
+            labels: [],
+            datasets: [{
+                label: 'Pressure', 
+                data: [],
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+        });
+
+        const temperatureChartData = reactive({
+            labels: [],
             datasets: [{
                 label: 'Temperature',
-                data: [22, 20, 21, 21, 23, 26, 13],
+                data: [],
                 backgroundColor: 'rgba(54, 162, 235, 0.2)',
                 borderColor: 'rgba(54, 162, 235, 1)',
                 borderWidth: 1
@@ -120,27 +150,61 @@ export default {
             maintainAspectRatio: false
         });
 
-        const initChart = () => {
-            const context = document.getElementById('temperature-chart').getContext('2d');
-            const chartType = isBarChart.value ? 'bar' : 'line';
-            chart.value = new Chart(context, {
-                type: chartType,
-                data: chartData,
+        const initHumidityChart = () => {
+            if (humidityChart.value) {
+                humidityChart.value.destroy();
+            }
+            const context = document.getElementById('humidity-chart').getContext('2d');
+            humidityChart.value = new Chart(context, {
+                type: isHumidityBarChart.value ? 'bar' : 'line',
+                data: humidityChartData,
                 options: chartOptions
             });
         };
 
-        const toggleChart = debounce(() => {
-            isBarChart.value = !isBarChart.value;
-            if (chart.value) {
-                chart.value.destroy();
-                nextTick(() => {
-                    nextTick(initChart)
-                })
-            } else {
-                initChart();
+        const initPressureChart = () => {
+            if (pressureChart.value) {
+                pressureChart.value.destroy();
             }
-        }, 500);
+            const context = document.getElementById('pressure-chart').getContext('2d');
+            pressureChart.value = new Chart(context, {
+                type: isPressureBarChart.value ? 'bar' : 'line',
+                data: pressureChartData,
+                options: chartOptions
+            });
+        };
+
+        const initTemperatureChart = () => {
+            if (temperatureChart.value) {
+                temperatureChart.value.destroy();
+            }
+            const context = document.getElementById('temperature-chart').getContext('2d');
+            temperatureChart.value = new Chart(context, {
+                type: isTemperatureBarChart.value ? 'bar' : 'line',
+                data: temperatureChartData,
+                options: chartOptions
+            });
+        };
+
+        const debouncedinitHumidityChart = debounce(initHumidityChart, 100);
+        const debouncedinitPressureChart = debounce(initPressureChart, 100);
+        const debouncedinitTemperatureChart = debounce(initTemperatureChart, 100);
+
+        const toggleHumidityChartType = () => {
+            isHumidityBarChart.value = !isHumidityBarChart.value;
+            debouncedinitHumidityChart();
+        }
+
+        const togglePressureChartType = () => {
+            isPressureBarChart.value = !isPressureBarChart.value;
+            debouncedinitPressureChart();
+        }
+
+
+        const toggleTemperatureChartType = () => {
+            isTemperatureBarChart.value = !isTemperatureBarChart.value;
+            debouncedinitTemperatureChart();
+        }
 
         //button showing chemical element
         const soilData = reactive([]);
@@ -177,7 +241,10 @@ export default {
 
         onMounted(async () => {
 
-            initChart()
+            initHumidityChart();
+            initPressureChart();
+            initTemperatureChart();
+
             // Создание карты
             map.value = L.map("map").setView([59.420161, 30.01832], 15);
 
@@ -189,7 +256,7 @@ export default {
 
             const response = await axios.get('/api/v1/fields?fieldId=1', {
                     headers: {
-                        'Authorization': `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDA3NDM0NzMsImV4cCI6MTcwMDc0NzA3Mywic3ViIjoiMiIsInJvbGUiOiJvcmdhbml6YXRpb24iLCJlbWFpbCI6IjEyMyIsIm9yZyI6Mn0.l6llNZJHN8g3e9c4FZB7ziQPD02UyJTSIqqArziP0s0'}`,
+                        'Authorization': `Bearer ${'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDEwOTIwNzAsImV4cCI6MTcwMTA5NTY3MCwic3ViIjoiMSIsInJvbGUiOiJvcmdhbml6YXRpb24iLCJlbWFpbCI6InRlc3RlbWFpbCIsIm9yZyI6MX0.czKkTjgG5Mc52t_qjI0H4pEmynntJbQG5mFJOmbTsgs'}`,
                         'Content-Type': 'application/json'
                     }
                 });
@@ -199,6 +266,16 @@ export default {
 
             try {
                 if (data) {
+
+                    humidityChartData.labels = [];
+                    humidityChartData.datasets[0].data = [];
+
+                    pressureChartData.labels = [];
+                    pressureChartData.datasets[0].data = [];
+
+                    temperatureChartData.labels = [];
+                    temperatureChartData.datasets[0].data = [];
+
                     seedData.push({
                         start_date: data.cropRotation.startDate,
                         end_date: data.cropRotation.endDate,
@@ -225,27 +302,55 @@ export default {
                         mn: data.soil.mn,
                         zn: data.soil.zn           
                     })
-                }
 
-                data.geom.coordinates.forEach(coord => {
-                    L.marker([coord.latitude, coord.longitude]).addTo(map.value)
-                    .bindPopup(`<strong>${data.cropRotation.crop.name}</strong><br>${data.cropRotation.description}`);
-                });
+                    humidityChartData.labels = data.meteoList.map(meteo => meteo.day);
+                    humidityChartData.datasets[0].data = data.meteoList.map(meteo => meteo.humidity);
+
+                    pressureChartData.labels = data.meteoList.map(meteo => meteo.day);
+                    pressureChartData.datasets[0].data = data.meteoList.map(meteo => meteo.pressure);
+
+                    temperatureChartData.labels = data.meteoList.map(meteo => meteo.day);
+                    temperatureChartData.datasets[0].data = data.meteoList.map(meteo => meteo.temperature);
+                    // initTemperatureChart();
+
+                    data.geom.coordinates.forEach(coord => {
+                        L.marker([coord.latitude, coord.longitude]).addTo(map.value)
+                        .bindPopup(`<strong>${data.cropRotation.crop.name}</strong><br>${data.cropRotation.description}`);
+                    })};
             } catch (error) {
                 console.error('Wrong Api', error);
             }
         });
 
+        onBeforeUnmount(() => {
+                if (humidityChart.value) {
+                    humidityChart.value.destroy();
+                }
+                if (pressureChart.value) {
+                    pressureChart.value.destroy();
+                }
+                if (temperatureChart.value) {
+                    temperatureChart.value.destroy();
+                }
+            })
+
         return { 
             map,
             seedData,
             seedColums,
-            chartData,
+            humidityChartData,
+            pressureChartData,
+            temperatureChartData,
             chartOptions,
-            chart,
-            isBarChart,
-            initChart,
-            toggleChart,
+            humidityChart,
+            pressureChart,
+            temperatureChart,
+            initHumidityChart,
+            initPressureChart,
+            initTemperatureChart,
+            toggleHumidityChartType,
+            togglePressureChartType,
+            toggleTemperatureChartType,
             soilColumns,
             soilData,
             soilColumns2,
@@ -254,6 +359,9 @@ export default {
             soilData3,
             fetchSoilComposition,
             isTableVisible,
+            debouncedinitHumidityChart,
+            debouncedinitPressureChart,
+            debouncedinitTemperatureChart
         };
     },
 
@@ -278,7 +386,7 @@ export default {
 }
 
 .q-table th {
-    font-size: 15px !important;
+    font-size: 17px;
 }
 
 .clickable-text {
