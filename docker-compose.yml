@@ -13,8 +13,4 @@ services:
 networks:
   default:
     external:
-<<<<<<< HEAD
       name: agronetwork
-=======
-      name: agronetwork
->>>>>>> origin/Nadya2.0
