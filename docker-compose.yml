@@ -9,4 +9,8 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
-    
+
+networks:
+  default:
+    external:
+      name: agronetwork

@@ -18,6 +18,8 @@
                                 <q-input filled label="Email" type="email" class="q-my-sm" v-model="email"></q-input>
                                 <q-input filled label="Пароль" type="password" class="q-my-sm" v-model="password"
                                     @keyup.enter="readyClick"></q-input>
+                                <q-input filled label="Роль" type="text" class="q-my-sm" v-model="role"
+                                    @keyup.enter="readyClick"></q-input>
                             </q-card-section>
                         </q-card-section>
                         <q-card-actions>
@@ -33,21 +35,37 @@
 
 <script>
 import { ref } from 'vue';
+import { postreg } from '../axiosRequest'
+import { userStore } from '../usage'
+import { useRouter } from "vue-router";
 
 export default {
     setup() {
         const email = ref('');
         const password = ref('');
+        const role = ref('');
+        const router = useRouter();
 
         function readyClick() {
             console.log(email);
             console.log(password);
-            if (!email.value.trim() || !password.value.trim()) {
+            console.log(role);
+            if (!email.value.trim() || !password.value.trim() || !role.value.trim()) {
                 throw new Error('не все данные введены');
             }
+            postreg({ email, password, role })
+                .then((myresponse) => {
+                    const { id, email, role, created_by } = myresponse;
+                    userStore.updateAll({ id, email, role, created_by });
+                    router.push('/map');
+                })
+                .catch((myerror) => {
+                    console.error(myerror);
+                    userStore.setError(myerror);
+                })
         }
         return {
-            email, password,
+            email, password, role,
             readyClick
         }
 
