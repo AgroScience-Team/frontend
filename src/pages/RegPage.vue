@@ -53,7 +53,7 @@ export default {
             if (!email.value.trim() || !password.value.trim() || !role.value.trim()) {
                 throw new Error('не все данные введены');
             }
-            postreg({ email, password, role })
+            postreg({ email: email.value, text_password: password.value, role: role.value })
                 .then((myresponse) => {
                     const { id, email, role, created_by } = myresponse;
                     userStore.updateAll({ id, email, role, created_by });

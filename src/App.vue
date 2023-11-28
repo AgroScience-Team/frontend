@@ -19,6 +19,7 @@
 import { ref, watch } from "vue";
 import { userStore } from "./usage";
 import { onBeforeMount } from "vue";
+
 export default {
   setup() {
     const errorShow = ref(false);
@@ -38,6 +39,21 @@ export default {
       },
     );
     onBeforeMount(() => userStore.init());
+
+    function checkToken() {
+      postinter()
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.error(error);
+          userStore.setError(error);
+        });
+    }
+
+    checkToken();
+
+
     return { errorShow, error, closeError }
   }
 }

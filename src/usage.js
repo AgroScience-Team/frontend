@@ -3,11 +3,12 @@ import { PersistentStore } from "./storage";
 class UserStore extends PersistentStore {
     data() {
         return {
-            username: null,
-            language: null,
-            url: null,
-            token: null,
-            tokenId: null,
+            id: null,
+            email: null,
+            role: null,
+            created_by: null,
+            access_token: null,
+            token_type: null,
             error: null,
         };
     }

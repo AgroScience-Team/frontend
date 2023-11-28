@@ -89,15 +89,6 @@ module.exports = configure(function (/* ctx */) {
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
     devServer: {
       // https: true
-      proxy: {
-        '/api/auth': {
-          target: 'http://auth-service:8000',
-          changeOrigin: true,
-          pathRewrite: {
-            '^/api/auth-service': ''
-          }
-        }
-      },
       open: false // opens browser window automatically
     },
 

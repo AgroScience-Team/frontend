@@ -32,11 +32,15 @@
 
 <script>
 import { ref } from 'vue';
+import { postlog } from '../axiosRequest'
+import { userStore } from '../usage'
+import { useRouter } from "vue-router";
 
 export default {
     setup() {
         const email = ref('');
         const password = ref('');
+        const router = useRouter();
 
         function readyClick() {
             console.log(email);
@@ -44,6 +48,17 @@ export default {
             if (!email.value.trim() || !password.value.trim()) {
                 throw new Error('не все данные введены');
             }
+
+            postlog({ username: email.value, password: password.value })
+                .then((myresponse) => {
+                    const { access_token, token_type } = myresponse;
+                    userStore.updateAll({ access_token, token_type });
+                    router.push('/map');
+                })
+                .catch((myerror) => {
+                    console.error(myerror);
+                    userStore.setError(myerror);
+                })
         }
         return {
             email, password,
