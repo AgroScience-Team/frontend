@@ -27,7 +27,7 @@ class UserStore extends PersistentStore {
         }
     }
     isAuthorized() {
-        if (this.state.token && this.state.tokenId) {
+        if (this.state.access_token && this.state.token_type) {
             return true;
         } else return false;
     }

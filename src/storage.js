@@ -36,6 +36,7 @@ export class PersistentStore extends Store {
             );
             this.isInitialized.value = true;
         }
+        return this.storeName;
     }
     getIsInitialized() {
         return this.isInitialized;

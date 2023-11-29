@@ -1,6 +1,7 @@
 import { route } from 'quasar/wrappers'
 import { createRouter, createMemoryHistory, createWebHistory, createWebHashHistory } from 'vue-router'
 import routes from './routes'
+import { userStore } from 'src/usage';
 
 /*
  * If not building with SSR mode, you can
@@ -10,6 +11,7 @@ import routes from './routes'
  * async/await or return a Promise which resolves
  * with the Router instance.
  */
+let routerinstance = null;
 
 export default route(function (/* { store, ssrContext } */) {
   const createHistory = process.env.SERVER
@@ -26,5 +28,21 @@ export default route(function (/* { store, ssrContext } */) {
     history: createHistory(process.env.VUE_ROUTER_BASE)
   })
 
+  routerinstance = Router;  //continue working with the same
+  // each time link changes =>
+  routerinstance.beforeEach(async (to, from) => {
+    if (
+      // make sure the user is authenticated
+      !userStore.isAuthorized() &&
+      // ❗️ Avoid an infinite redirect
+      to.name !== "login"
+    ) {
+      // redirect the user to the login page
+      return { name: "login" };
+    }
+  });
+
   return Router
 })
+
+export { routerinstance };

@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { userStore } from './usage';
+import router from './router';
 
 function parseerror(data) {
     let errorMsg = "";
@@ -12,6 +13,22 @@ function parseerror(data) {
         errorMsg += tmp;
     })
     return errorMsg
+}
+
+function parseCodeError(error) {
+    let msg = '';
+    if (error.status === 401) {
+        // clean the store; go to logout page
+        userStore.clearAll();
+        router.push('/login');
+        return;
+    }
+    if (Array.isArray(error.data.detail)) {
+        msg = parseerror(error.data);
+    } else {
+        msg = error.data.detail;
+    }
+    return msg;
 }
 
 export function postreg({ email, text_password, role }) {
@@ -28,14 +45,11 @@ export function postreg({ email, text_password, role }) {
                 const code = response.status;
                 if (code === 201) {
                     resolve(response.data);
-                } else if (code === 422) {
-                    console.log(response.data);
-                    reject(parseerror(response.data));
                 } else {
-                    reject('unknownCodeError');
+                    reject(parseCodeError(response));
                 }
-
             }
+
             )
             .catch((error) => {
                 reject(error);
@@ -59,10 +73,8 @@ export function postlog({ username, password }) {
                 const code = response.status;
                 if (code === 200) {
                     resolve(response.data);
-                } else if (code === 422) {
-                    reject(parseerror(response.data));
                 } else {
-                    reject('unknownCodeError');
+                    reject(parseCodeError(response));
                 }
             })
             .catch((error) => {
@@ -75,6 +87,7 @@ export function postlog({ username, password }) {
 
 export function postinter() {
     return new Promise((resolve, reject) => {
+        console.log(userStore.getState());
         const { access_token } = userStore.getState();
         if (!access_token) {
             console.log('no token found');
@@ -95,7 +108,7 @@ export function postinter() {
                 if (code === 200) {
                     resolve(myresponse);
                 } else {
-                    reject('unknownCodeError');
+                    reject(parseCodeError(myresponse));
                 }
             })
             .catch((error) => {

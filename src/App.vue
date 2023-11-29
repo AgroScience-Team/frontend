@@ -12,16 +12,19 @@
       </q-card-actions>
     </q-card>
   </q-dialog>
-  <router-view />
+  <router-view v-if="isInit" />
+  <div v-else>not Initialized</div>
 </template>
 
 <script>
 import { ref, watch } from "vue";
 import { userStore } from "./usage";
 import { onBeforeMount } from "vue";
+import { postinter } from "./axiosRequest";
 
 export default {
   setup() {
+    const isInit = ref(userStore.getIsInitialized());
     const errorShow = ref(false);
     const error = ref(null);
     function closeError() {
@@ -38,23 +41,27 @@ export default {
         }
       },
     );
-    onBeforeMount(() => userStore.init());
-
-    function checkToken() {
-      postinter()
-        .then((response) => {
-          console.log(response);
+    watch(
+      () => userStore.getIsInitialized(),
+      (val) => {
+        isInit.value = val;
+      }
+    )
+    onBeforeMount(() => {
+      userStore.init()
+        .then(() => postinter())
+        .then(() => {
+          console.log('done');
         })
         .catch((error) => {
           console.error(error);
-          userStore.setError(error);
-        });
-    }
-
-    checkToken();
+        })
+    })
 
 
-    return { errorShow, error, closeError }
+
+
+    return { errorShow, error, closeError, isInit }
   }
 }
 </script>
