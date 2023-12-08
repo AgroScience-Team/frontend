@@ -67,7 +67,11 @@ export function postlog({ username, password }) {
         }
 
         axios
-            .post('http://localhost:8080/api/auth/token', myrequest, { headers: { 'content-type': 'application/x-www-form-urlencoded' } })
+            .post('http://localhost:8080/api/auth/token', myrequest, {
+                headers: {
+                    'content-type': 'application/x-www-form-urlencoded'
+                }
+            })
             .then((response) => {
                 console.log(response);
                 const code = response.status;
@@ -85,80 +89,100 @@ export function postlog({ username, password }) {
 
 
 
-export function postinter() {
-    return new Promise((resolve, reject) => {
-        console.log(userStore.getState());
-        const { access_token } = userStore.getState();
-        if (!access_token) {
-            console.log('no token found');
+// export function postinter() {
+//     return new Promise((resolve, reject) => {
+//         console.log(userStore.getState());
+//         const { access_token } = userStore.getState();
+//         if (!access_token) {
+//             console.log('no token found');
 
-            reject('no token');
-        }
-
-        axios
-            .post('http://localhost:8080/api/auth/introspect', null, {
-                headers: {
-                    'Authorization': `Bearer ${'access_token'}`,
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then((myresponse) => {
-                console.log(myresponse);
-                const code = myresponse.status;
-                if (code === 200) {
-                    resolve(myresponse);
-                } else {
-                    reject(parseCodeError(myresponse));
-                }
-            })
-            .catch((error) => {
-                reject(error);
-            })
-    })
-}
-
-
-// export function postToServer(object, responseType = "json") {
-//     console.log("POST TO SERVER: ", object); // что передаем
-
-//     return new Promise((resolve, reject) => { //ассинхронное 
-//         const { token, tokenId, url } = taskStore.getState().userInfo;
-//         //     const tokenId = window.localStorage.getItem("pwa-tokenId");
-
-//         if (!token && !tokenId) { //хранить в локальном хранилище
-//             console.log("No tokens found");
-//             logout();
-//             // reject({
-//             //   error: {
-//             //     message: "No tokens found",
-//             //   },
-//             // });
-//             return;
+//             reject('no token');
+//             return
 //         }
-//         const config = {
-//             headers: {
-//                 Authorization: { "token": ["${token}", "${tokenId}"] },
-//             },
-//             responseType,
-//         };
-//         // console.log('SEND: ', object);
+
 //         axios
-//             .post(url, object, config)
-//             .then((response) => {
-//                 const result = checkResponse(response);
-//                 console.log("OBJECT: ", object);
-//                 console.log("RESPONSE: ", response);
-//                 console.log("RESULT: ", result);
-//                 if (result.code === 0) resolve(result.payload);
-//                 else {
-//                     if (result.message) reject(result.message);
-//                     reject(result);
+//             .post('http://localhost:8080/api/auth/introspect', null, {
+//                 headers: {
+//                     'Authorization': `Bearer ${'access_token'}`,
+//                     'Content-Type': 'application/json'
+//                 }
+//             })
+//             .then((myresponse) => {
+//                 console.log(myresponse);
+//                 const code = myresponse.status;
+//                 if (code === 200) {
+//                     resolve(myresponse);
+//                 } else {
+//                     reject(parseCodeError(myresponse));
 //                 }
 //             })
 //             .catch((error) => {
-//                 console.log("ERR", error);
-//                 storeArray.setError(error);
 //                 reject(error);
-//             });
-//     });
+//             })
+//     })
 // }
+
+
+// export function postworkers({ name, surname, patronymic, date_of_birth, phone_number }) {
+//     return new Promise((resolve, reject) => {
+//         const myrequest = {
+//             "name": name,
+//             "surname": surname,
+//             "patronymic": patronymic,
+//             "date_of_birth": date_of_birth,
+//             "phone_number": phone_number,
+//         }
+
+//         axios
+//             .post('http://localhost:8080/api/profiles/workers', myrequest)
+//             .then((response) => {
+//                 console.log(response);
+//                 const code = response.status;
+
+//             })
+//     })
+// }
+
+
+
+
+export function postToServer(object, responseType = "json") {
+    console.log("POST TO SERVER: ", object); // что передаем
+
+    return new Promise((resolve, reject) => { //ассинхронное 
+        const { access_token } = userStore.getState();
+        //     const tokenId = window.localStorage.getItem("pwa-tokenId");
+
+        if (!access_tokentoken) { //хранить в локальном хранилище
+            console.log("No tokens found");
+            reject('no token');
+            return;
+        }
+
+        // const config = {
+        //     headers: {
+        //         Authorization: { "token": ["${token}", "${tokenId}"] },
+        //     },
+        //     responseType,
+        // };
+        // console.log('SEND: ', object);
+        axios
+            .post(url, object, config)
+            .then((response) => {
+                const result = checkResponse(response);
+                console.log("OBJECT: ", object);
+                console.log("RESPONSE: ", response);
+                console.log("RESULT: ", result);
+                if (result.code === 0) resolve(result.payload);
+                else {
+                    if (result.message) reject(result.message);
+                    reject(result);
+                }
+            })
+            .catch((error) => {
+                console.log("ERR", error);
+                storeArray.setError(error);
+                reject(error);
+            });
+    });
+}

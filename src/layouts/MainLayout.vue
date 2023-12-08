@@ -103,7 +103,7 @@ export default {
     },
     goToOrganization() {
       this.$router.push('/organization_info');
-    }
+    },
   },
 
 
@@ -136,13 +136,21 @@ export default {
       }
     };
 
+    // const handleAction = (action) => {
+    //   if (action === 'logout') {
+    //     userStore.clearAll();
+    //     router.push('/'); // Переход на главную страницу после выхода
+    //   }
+    // };
+
     return {
       essentialLinks: linksList,
       miniOpen,
       pageTitle,
       toggleLeftDrawer() {
         miniOpen.value = !miniOpen.value;
-      }
+      },
+      // handleLogout
     };
   }
 }

@@ -20,17 +20,20 @@
 import { ref, watch } from "vue";
 import { userStore } from "./usage";
 import { onBeforeMount } from "vue";
-import { postinter } from "./axiosRequest";
+// import { postinter } from "./axiosRequest";
+import { useRoute } from "vue-router";
 
 export default {
   setup() {
     const isInit = ref(userStore.getIsInitialized());
     const errorShow = ref(false);
     const error = ref(null);
+    const route = useRoute();
     function closeError() {
       userStore.setError(null);
       errorShow.value = false;
     }
+
     watch(
       () => userStore.getError(),
       (val) => {
@@ -49,7 +52,11 @@ export default {
     )
     onBeforeMount(() => {
       userStore.init()
-        .then(() => postinter())
+        // .then(() => {
+        //   if (route.name !== 'entry') {
+        //     return postinter();
+        //   }
+        // })
         .then(() => {
           console.log('done');
         })
@@ -57,10 +64,6 @@ export default {
           console.error(error);
         })
     })
-
-
-
-
     return { errorShow, error, closeError, isInit }
   }
 }

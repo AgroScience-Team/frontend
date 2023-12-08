@@ -2,7 +2,8 @@
   <div class="row">
     <q-btn style="background-color: #1b2332;" text-color="white" size="md" class="q-ma-sm col-auto"
       @Click="dialogOpen = true">Добавить</q-btn>
-    <q-btn style="background-color: #1b2332;" text-color="white" size="md" class="q-ma-sm col-auto">Редактировать</q-btn>
+    <q-btn style="background-color: #1b2332;" text-color="white" size="md" class="q-ma-sm col-auto"
+      @Click="dialogOpen = true">Редактировать</q-btn>
     <q-btn style="background-color: #1b2332;" text-color="white" size="md" class="q-ma-sm col-auto">Удалить</q-btn>
 
     <q-dialog v-model="dialogOpen" persistent>
@@ -21,7 +22,7 @@
         </q-card-section>
         <q-card-actions align="right" class="q-ma-md"> <q-btn class="q-mr-lg" flat @Click="cancel">Отмена</q-btn><q-btn
             style="background-color: #1b2332;" text-color="white" class="q-ml-lg"
-            @Click="addUser">Добавить</q-btn></q-card-actions>
+            @Click="addUser">Подтвердить</q-btn></q-card-actions>
       </q-card>
     </q-dialog>
   </div>

@@ -1,14 +1,8 @@
 <template>
-  <q-item
-    clickable
-    tag="a"
-    :to="link"
-    :class="{ 'menu': isActive }"
-    class="myclass"
-  >
-  <q-item-section v-if="icon" avatar>
-    <q-icon :name="icon" />
-  </q-item-section>
+  <q-item clickable tag="a" :to="link" :class="{ 'menu': isActive }" class="myclass">
+    <q-item-section v-if="icon" avatar>
+      <q-icon :name="icon" />
+    </q-item-section>
 
     <q-item-section>
       <q-item-label>{{ title }}</q-item-label>
@@ -61,11 +55,11 @@ export default defineComponent({
   left: 0;
   top: 0;
   bottom: 0;
-  width: 6px; 
+  width: 6px;
   background-color: #5EA7FD;
 }
 
-.myclass{
+.myclass {
   font-family: 'Arial';
   font-size: 20px;
 }
