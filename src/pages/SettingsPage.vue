@@ -12,7 +12,8 @@
                 <q-input outlined label="Сайт" class="q-my-sm" v-model="orgData.website"></q-input>
             </q-card-section>
             <q-card-actions align="right">
-                <q-btn class="col-12 col-md-3 q-mr-sm" @click="clearOrg">Очистить</q-btn>
+                <q-btn class="q-mr-sm col-12 col-md-4 " flat color="negative" @click="deleteUser">Удалить</q-btn>
+                <q-btn class="col-12 col-md-3 q-mr-sm" flat @click="clearOrg">Очистить</q-btn>
                 <q-btn class="q-mr-sm col-12 col-md-4" color="primary" @click="sendPost">Сохранить</q-btn>
             </q-card-actions>
         </q-card>
@@ -22,7 +23,7 @@
 <script>
 import { postToServer } from 'src/axiosRequest';
 import { userStore } from 'src/usage';
-import { reactive, ref } from 'vue';
+import { reactive, ref, onBeforeUnmount, onBeforeMount } from 'vue';
 
 export default {
     setup() {
@@ -35,16 +36,64 @@ export default {
                 orgData[key] = '';
             }
         }
+
+        onBeforeMount(() => {
+            console.log(userStore.getState().user_id)
+            if (userStore.getState().user_id) {
+                postToServer({ url: 'http://localhost:8080/api/profiles/organizations', getParams: { params: { user_id: userStore.getState().user_id } }, request: 'get' })
+                    .then((response) => {
+                        console.log(response);
+                        for (const key in response) {
+                            // if (!Object.keys(orgData).find(o => o === key)) {
+                            //     throw new Error('ключ ' + key + ' не найден');
+                            // }
+                            if (Object.keys(orgData).find(o => o === key)) {
+                                orgData[key] = response[key];
+                            }
+                        }
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        userStore.setError(error);
+                    })
+            }
+        })
+
+
+        function deleteUser() {
+            if (userStore.getState().user_id) {
+                postToServer({ url: 'http://localhost:8080/api/profiles/organizations/me', request: 'delete' })
+                    .then((response) => {
+                        console.log(response);
+                        clearOrg();
+                        userStore.updateState('user_id', null);
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        userStore.setError(error);
+                    })
+            }
+        }
+
         function sendPost() {
             for (const key in orgData) {
+                console.log(orgData[key]);
+                console.log('KEY ', key);
                 if (!orgData[key].trim()) {
                     throw new Error('Не все данные введены');
                 }
             }
+            let request = 'post';
+            let url = 'http://localhost:8080/api/profiles/organizations'
+            if (userStore.getState().user_id) {
+                request = 'put';
+                url += '/me';
+            }
 
-            postToServer({ url: 'http://localhost:8080/api/profiles/organizations', object: orgData, request: 'post' })
+            postToServer({ url, data: orgData, request })
                 .then((response) => {
                     console.log(response);
+                    userStore.updateState('user_id', response.user_id);
                     flag.value = true;
                 })
                 .catch((error) => {
@@ -53,8 +102,11 @@ export default {
                 })
         }
 
+        onBeforeUnmount(() => {
+            flag.value = false;
+        })
         return {
-            orgData, sendPost, flag, clearOrg
+            orgData, sendPost, flag, clearOrg, deleteUser
         }
 
     }

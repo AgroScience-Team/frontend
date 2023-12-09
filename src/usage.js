@@ -4,6 +4,7 @@ class UserStore extends PersistentStore {
     data() {
         return {
             id: null,
+            user_id: null,
             email: null,
             role: null,
             created_by: null,

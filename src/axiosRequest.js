@@ -43,7 +43,7 @@ export function postreg({ email, text_password, role }) {
             .then((response) => {
                 console.log(response);
                 const code = response.status;
-                if (code === 201) {
+                if (code > 199 && code < 300) {
                     resolve(response.data);
                 } else {
                     reject(parseCodeError(response));
@@ -75,7 +75,7 @@ export function postlog({ username, password }) {
             .then((response) => {
                 console.log(response);
                 const code = response.status;
-                if (code === 200) {
+                if (code > 199 && code < 300) {
                     resolve(response.data);
                 } else {
                     reject(parseCodeError(response));
@@ -111,8 +111,8 @@ export function postlog({ username, password }) {
 
 
 
-export function postToServer({ url, object, request }) {
-    console.log("POST TO SERVER: ", object); // что передаем
+export function postToServer({ url, data, request, getParams }) {
+    console.log("POST TO SERVER: ", data); // что передаем
 
     return new Promise((resolve, reject) => { //ассинхронное 
         const { access_token } = userStore.getState();
@@ -128,13 +128,18 @@ export function postToServer({ url, object, request }) {
             headers: {
                 'Authorization': `Bearer ${access_token}`,
                 'Content-Type': 'application/json'
-            }
+            },
+            ...getParams
         };
 
         if (request === 'get') {
             axiosFunc = axios.get(url, config);
         } else if (request === 'post') {
-            axiosFunc = axios.post(url, object, config);
+            axiosFunc = axios.post(url, data, config);
+        } else if (request === 'put') {
+            axiosFunc = axios.put(url, data, config)
+        } else if (request === 'delete') {
+            axiosFunc = axios.delete(url, config)
         } else {
             console.log('unknown Request Type');
         }
@@ -142,9 +147,9 @@ export function postToServer({ url, object, request }) {
         axiosFunc
             .then((response) => {
                 const code = response.status;
-                console.log("OBJECT: ", object);
+                console.log("OBJECT: ", data);
                 console.log("RESPONSE: ", response);
-                if (code === 200 || code === 201) {
+                if (code > 199 && code < 300) {
                     console.log('RESULT: ', response.data);
                     resolve(response.data);
                 } else {

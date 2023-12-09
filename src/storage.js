@@ -22,9 +22,9 @@ export class PersistentStore extends Store {
     }
     async init() {
         if (!this.isInitialized.value) {
-            console.log("Init: ", this.storeName);
+            // console.log("Init: ", this.storeName);
             let stateFromIndexedDB = await get(this.storeName);
-            console.log('state: ', stateFromIndexedDB);
+            // console.log('state: ', stateFromIndexedDB);
             if (stateFromIndexedDB) {
                 Object.assign(this.state, JSON.parse(stateFromIndexedDB));
             }
