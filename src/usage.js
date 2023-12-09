@@ -14,6 +14,7 @@ class UserStore extends PersistentStore {
     }
 
     updateAll(object) {
+        console.log('ogject: ', object);
         for (const key in object) {
             this.state[key] = object[key];
         }

@@ -49,6 +49,7 @@
 import { ref, watch, onMounted } from 'vue'
 import EssentialLink from 'components/EssentialLink.vue'
 import { useRoute, useRouter } from 'vue-router'
+import { userStore } from 'src/usage'
 
 
 const linksList = [
@@ -85,6 +86,9 @@ const linksList = [
   {
     title: 'Выход',
     icon: 'o_logout',
+    action: () => {
+      userStore.clearAll();
+    },
     link: '/'
   },
 ]
@@ -96,15 +100,6 @@ export default {
     EssentialLink
   },
 
-
-  // methods: {
-  //   goToWoker() {
-  //     this.$router.push('/worker_info');
-  //   },
-  //   goToOrganization() {
-  //     this.$router.push('/organization_info');
-  //   },
-  // },
 
 
   setup() {
@@ -144,12 +139,6 @@ export default {
       }
     };
 
-    // const handleAction = (action) => {
-    //   if (action === 'logout') {
-    //     userStore.clearAll();
-    //     router.push('/'); // Переход на главную страницу после выхода
-    //   }
-    // };
 
     return {
       essentialLinks: linksList,
@@ -159,7 +148,6 @@ export default {
         miniOpen.value = !miniOpen.value;
       },
       goToOrganization, goToWoker,
-      // handleLogout
     };
   }
 }

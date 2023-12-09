@@ -12,7 +12,7 @@
                 <q-input outlined label="Сайт" class="q-my-sm" v-model="orgData.website"></q-input>
             </q-card-section>
             <q-card-actions align="right">
-                <q-btn class="col-12 col-md-3 q-mr-sm" @click="clear">Очистить</q-btn>
+                <q-btn class="col-12 col-md-3 q-mr-sm" @click="clearOrg">Очистить</q-btn>
                 <q-btn class="q-mr-sm col-12 col-md-4" color="primary" @click="sendPost">Сохранить</q-btn>
             </q-card-actions>
         </q-card>
@@ -30,7 +30,7 @@ export default {
         const orgData = reactive({ name: '', description: '', city: '', inn: '', phone_number: '', website: '' });
 
         const flag = ref(false);
-        function clear() {
+        function clearOrg() {
             for (const key in orgData) {
                 orgData[key] = '';
             }
@@ -54,7 +54,7 @@ export default {
         }
 
         return {
-            orgData, sendPost, flag, clear
+            orgData, sendPost, flag, clearOrg
         }
 
     }

@@ -12,7 +12,10 @@
       </q-card-actions>
     </q-card>
   </q-dialog>
-  <router-view v-if="isInit" />
+  <div v-if="isInit1">
+
+    <router-view />
+  </div>
   <div v-else>not Initialized</div>
 </template>
 
@@ -25,10 +28,11 @@ import { useRoute } from "vue-router";
 
 export default {
   setup() {
-    const isInit = ref(userStore.getIsInitialized());
+    const isInit1 = ref(false);
+    // const isInit = ref(userStore.getIsInitialized());
     const errorShow = ref(false);
     const error = ref(null);
-    const route = useRoute();
+    // const route = useRoute();
     function closeError() {
       userStore.setError(null);
       errorShow.value = false;
@@ -44,27 +48,30 @@ export default {
         }
       },
     );
-    watch(
-      () => userStore.getIsInitialized(),
-      (val) => {
-        isInit.value = val;
-      }
-    )
-    onBeforeMount(() => {
-      userStore.init()
-        // .then(() => {
-        //   if (route.name !== 'entry') {
-        //     return postinter();
-        //   }
-        // })
-        .then(() => {
-          console.log('done');
-        })
-        .catch((error) => {
-          console.error(error);
-        })
-    })
-    return { errorShow, error, closeError, isInit }
+    // watch(
+    //   () => userStore.getIsInitialized(),
+    //   (val) => {
+    //     isInit.value = val;
+    //   }
+    // )
+    // onBeforeMount(() => {
+    console.log('onBEFORE');
+    userStore.init()
+      // .then(() => {
+      //   if (route.name !== 'entry') {
+      //     return postinter();
+      //   }
+      // })
+      .then(() => {
+        isInit1.value = true;
+        console.log('done');
+        console.log(userStore.getState().access_token);
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+    // })
+    return { errorShow, error, closeError, isInit1 }
   }
 }
 </script>

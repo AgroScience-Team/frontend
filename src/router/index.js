@@ -45,7 +45,20 @@ export default route(function (/* { store, ssrContext } */) {
   //   }
   // });
 
-  routerinstance.beforeEach(async (to, from, next) => {
+  function delay(milliseconds) {
+    return new Promise((resolve) => {
+      setTimeout(resolve, milliseconds);
+    });
+  }
+
+  routerinstance.beforeEach(async (to, from) => {
+    console.log('TO: ', to);
+    console.log('FROM: ', from);
+    console.log(userStore.getState().access_token);
+    console.log('getIsInit: ', userStore.getIsInitialized().value)
+    while (!userStore.getIsInitialized().value) {
+      await delay(10);
+    }
     if (
       // make sure the user is authenticated
       !userStore.isAuthorized() &&
@@ -55,15 +68,15 @@ export default route(function (/* { store, ssrContext } */) {
       to.name !== 'entry'
     ) {
       // Check if the user's authorization can be verified
-      await userStore.init();
+      // await userStore.init();
       if (!userStore.isAuthorized()) {
         // If the user is not authorized, redirect to the login page
-        next({ name: "login" });
-        return;
+        // next({ name: "login" });
+        return { name: "login" };
       }
     }
     // Continue navigation if the user is authorized
-    next();
+    // next();
   });
 
 
