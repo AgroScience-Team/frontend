@@ -48,7 +48,7 @@
 <script>
 import { ref, watch, onMounted } from 'vue'
 import EssentialLink from 'components/EssentialLink.vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 
 const linksList = [
@@ -97,20 +97,21 @@ export default {
   },
 
 
-  methods: {
-    goToWoker() {
-      this.$router.push('/worker_info');
-    },
-    goToOrganization() {
-      this.$router.push('/organization_info');
-    },
-  },
+  // methods: {
+  //   goToWoker() {
+  //     this.$router.push('/worker_info');
+  //   },
+  //   goToOrganization() {
+  //     this.$router.push('/organization_info');
+  //   },
+  // },
 
 
   setup() {
     const route = useRoute();
     const miniOpen = ref(false);
     const pageTitle = ref('');
+    const router = useRouter();
 
     const setPageTitle = (linkTitle) => {
       pageTitle.value = linkTitle;
@@ -120,6 +121,13 @@ export default {
     onMounted(() => {
       updatePageTitle();
     });
+
+    function goToWoker() {
+      router.push('/worker_info');
+    };
+    function goToOrganization() {
+      router.push('/organization_info');
+    };
 
     watch(() => route.path, () => {
       updatePageTitle();
@@ -150,6 +158,7 @@ export default {
       toggleLeftDrawer() {
         miniOpen.value = !miniOpen.value;
       },
+      goToOrganization, goToWoker,
       // handleLogout
     };
   }

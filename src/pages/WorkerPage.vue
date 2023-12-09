@@ -9,20 +9,20 @@
     <q-dialog v-model="dialogOpen" persistent>
       <q-card class="q-ma-sm">
         <q-card-section>
-          <q-input filled label="Email" type="email" class="q-ma-md" v-model="userData.email" clearable></q-input>
-          <div class="row">
+          <!-- <q-input filled label="Email" type="email" class="q-ma-md" v-model="userData.email" clearable></q-input> -->
+          <!-- <div class="row">
             <q-input filled label="Логин" class="q-mx-md col" v-model="userData.login" clearable></q-input>
             <q-input filled label="Пароль" type="password" class="q-mx-md col" v-model="userData.password"
               clearable></q-input>
-          </div>
+          </div> -->
           <q-input filled label="Фамилия" class="q-ma-md" v-model="userData.surname" clearable></q-input>
           <q-input filled label="Имя" class="q-ma-md" v-model="userData.name" clearable></q-input>
           <q-input filled label="Отчество" class="q-ma-md" v-model="userData.patronymic" clearable></q-input>
           <q-input filled label="Роль" class="q-ma-md" v-model="userData.role" clearable></q-input>
         </q-card-section>
-        <q-card-actions align="right" class="q-ma-md"> <q-btn class="q-mr-lg" flat @Click="cancel">Отмена</q-btn><q-btn
+        <q-card-actions align="right" class="q-ma-md"> <q-btn class="q-mr-lg" flat @click="cancel">Отмена</q-btn><q-btn
             style="background-color: #1b2332;" text-color="white" class="q-ml-lg"
-            @Click="addUser">Подтвердить</q-btn></q-card-actions>
+            @click="addUser">Подтвердить</q-btn></q-card-actions>
       </q-card>
     </q-dialog>
   </div>
@@ -33,7 +33,10 @@
 </template>
 
 <script>
+import { postToServer } from 'src/axiosRequest';
+import { userStore } from 'src/usage';
 import { reactive, ref } from 'vue'
+
 // здесь все, что в миро написано, можно будет просто удалить ненужное / добавить нужное
 const columns = [
   { name: 'id', required: true, label: "id", align: 'center', field: 'id', sortable: true, style: "width:50px" },  // serial
@@ -51,11 +54,25 @@ export default {
   setup() {
     const rows = ref([]);
     const dialogOpen = ref(false);
+    const flag = ref(false);
+
     function deleteRow(event, row, idx) {
       console.log(idx); // что делать в БД дальше, либо перезапись либо удаление ?
     }
 
     const userData = reactive({ email: '', login: '', password: '', surname: '', name: '', patronymic: '', role: '' });
+
+    const workers = ref([]);
+    postToServer({ url: 'http://localhost:8080/api/auth/users/workers', request: 'get' })
+      .then((myresponse) => {
+        console.log(myresponse);
+        workers.value = [...myresponse];
+      })
+      .catch((error) => {
+        console.error(error);
+        userStore.setError(error);
+      })
+    console.log(workers);
 
     function addUser() {
 

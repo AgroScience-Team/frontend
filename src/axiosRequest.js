@@ -88,41 +88,6 @@ export function postlog({ username, password }) {
 }
 
 
-
-// export function postinter() {
-//     return new Promise((resolve, reject) => {
-//         console.log(userStore.getState());
-//         const { access_token } = userStore.getState();
-//         if (!access_token) {
-//             console.log('no token found');
-
-//             reject('no token');
-//             return
-//         }
-
-//         axios
-//             .post('http://localhost:8080/api/auth/introspect', null, {
-//                 headers: {
-//                     'Authorization': `Bearer ${'access_token'}`,
-//                     'Content-Type': 'application/json'
-//                 }
-//             })
-//             .then((myresponse) => {
-//                 console.log(myresponse);
-//                 const code = myresponse.status;
-//                 if (code === 200) {
-//                     resolve(myresponse);
-//                 } else {
-//                     reject(parseCodeError(myresponse));
-//                 }
-//             })
-//             .catch((error) => {
-//                 reject(error);
-//             })
-//     })
-// }
-
-
 // export function postworkers({ name, surname, patronymic, date_of_birth, phone_number }) {
 //     return new Promise((resolve, reject) => {
 //         const myrequest = {
@@ -146,43 +111,54 @@ export function postlog({ username, password }) {
 
 
 
-export function postToServer(object, responseType = "json") {
+export function postToServer({ url, object, request }) {
     console.log("POST TO SERVER: ", object); // что передаем
 
     return new Promise((resolve, reject) => { //ассинхронное 
         const { access_token } = userStore.getState();
-        //     const tokenId = window.localStorage.getItem("pwa-tokenId");
+        let axiosFunc;
 
-        if (!access_tokentoken) { //хранить в локальном хранилище
+        if (!access_token) { //хранить в локальном хранилище
             console.log("No tokens found");
             reject('no token');
             return;
         }
 
-        // const config = {
-        //     headers: {
-        //         Authorization: { "token": ["${token}", "${tokenId}"] },
-        //     },
-        //     responseType,
-        // };
-        // console.log('SEND: ', object);
-        axios
-            .post(url, object, config)
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${access_token}`,
+                'Content-Type': 'application/json'
+            }
+        };
+
+        if (request === 'get') {
+            axiosFunc = axios.get(url, config);
+        } else if (request === 'post') {
+            axiosFunc = axios.post(url, object, config);
+        } else {
+            console.log('unknown Request Type');
+        }
+
+        axiosFunc
             .then((response) => {
-                const result = checkResponse(response);
+                const code = response.status;
                 console.log("OBJECT: ", object);
                 console.log("RESPONSE: ", response);
-                console.log("RESULT: ", result);
-                if (result.code === 0) resolve(result.payload);
-                else {
-                    if (result.message) reject(result.message);
-                    reject(result);
+                if (code === 200 || code === 201) {
+                    console.log('RESULT: ', response.data);
+                    resolve(response.data);
+                } else {
+                    reject(parseCodeError(response));
                 }
             })
             .catch((error) => {
                 console.log("ERR", error);
-                storeArray.setError(error);
                 reject(error);
             });
     });
 }
+
+
+// export function getFromServer(object){
+
+// }
