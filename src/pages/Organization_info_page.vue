@@ -3,17 +3,60 @@
               <q-table
                   class="my-sticky-colum-table"
                   flat bordered
+<<<<<<< HEAD
+                  :rows="information"
+                  :columns="columns"
+                  row-key="label"
+                  v-model:pagination="pagination"
+                  hide-header
+                  hide-bottom
+=======
                   :rows="organizationData"
                   :columns="organizationColumns"
                   raw-key="id"
                   v-model:pagination="pagination"
                   hide-bottom
                   hide-header
+>>>>>>> origin/9-correct
               />
           </div>
   </template>
       
   <script>
+<<<<<<< HEAD
+  export default {
+    data() {
+      return {
+        information: [
+          { label: 'ID', value: '5' },
+          { label: 'User ID', value: '7'},
+          { label: 'Name', value: 'John'},
+          { label: 'Created at', value: '2013-05-01'},
+          { label: 'Address', value: 'Street No.1'}
+        ],
+        columns: [
+          { name: 'label', 
+            required: true, 
+            label: 'Keyword', 
+            align: 'center', 
+            field: 'label', 
+            sortable: false,
+            style: 'width: 500px'
+          },
+          { name: 'value', 
+            label: 'value', 
+            align: 'left', 
+            field: 'value', 
+            sortable: false 
+          },
+        ],
+        pagination: {
+          rowsPerPage: 10
+        }
+      };
+    },
+  }
+=======
   import { onMounted, reactive } from 'vue';
   import axios from 'axios' ;
   import { userStore } from 'src/usage';
@@ -75,6 +118,7 @@
     }
   }
 
+>>>>>>> origin/9-correct
   </script>
   
   <style lang="scss">

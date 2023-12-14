@@ -9,8 +9,12 @@ services:
     volumes:
       - .:/app
       - /app/node_modules
+<<<<<<< HEAD
+    
+=======
 
 networks:
   default:
     external:
       name: agronetwork
+>>>>>>> origin/9-correct

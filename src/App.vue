@@ -1,3 +1,16 @@
+<<<<<<< HEAD
+<template>
+  <router-view />
+</template>
+
+<script>
+import { defineComponent } from 'vue'
+
+export default defineComponent({
+  name: 'App'
+})
+</script>
+=======
 <template>
   <q-dialog v-model="errorShow">
     <q-card style="width: 300px">
@@ -68,3 +81,4 @@ export default {
   }
 }
 </script>
+>>>>>>> origin/9-correct

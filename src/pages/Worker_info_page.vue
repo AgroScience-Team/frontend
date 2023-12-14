@@ -3,9 +3,15 @@
               <q-table
                   class="differnet-color"
                   flat bordered
+<<<<<<< HEAD
+                  :rows="information"
+                  :columns="columns"
+                  row-key="label"
+=======
                   :rows="workerData"
                   :columns="workerColumns"
                   row-key="id"
+>>>>>>> origin/9-correct
                   v-model:pagination="pagination"
                   hide-header
                   hide-bottom
@@ -14,6 +20,43 @@
   </template>
     
   <script>
+<<<<<<< HEAD
+  export default {
+    data() {
+      return {
+        information: [
+          { label: 'ID', value: '1' },
+          { label: 'User ID', value: '13'},
+          { label: 'Organization ID', value: '343'},
+          { label: 'Date of birth', value: '2023-11-01'},
+          { label: 'Name', value: 'John'},
+          { label: 'Surname', value: 'Doe'},
+          { label: 'Patronymic', value: 'ABCDEFG'},
+          { label: 'Date of birth', value: '2023-11-01'},
+          { label: 'Created at', value: '2023-11-01'},
+        ],
+        columns: [
+          { name: 'label', 
+            required: true, 
+            label: 'Keyword', 
+            align: 'center', 
+            field: 'label', 
+            sortable: false,
+            style: 'width: 500px'
+          },
+          { name: 'value', 
+            label: 'value', 
+            align: 'left', 
+            field: 'value', 
+            sortable: false 
+          },
+        ],
+        pagination: {
+          rowsPerPage: 10
+        }
+      };
+    },
+=======
   import { onMounted, reactive } from 'vue';
   import axios from 'axios';
   import { userStore } from 'src/usage';
@@ -72,6 +115,7 @@
         }
       }
     }
+>>>>>>> origin/9-correct
   }
   </script>
   

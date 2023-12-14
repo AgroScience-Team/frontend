@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+<template>
+    <div>ТУТ КУЛЬТУРЫ</div>
+</template>
+=======
 <template>
     <div v-show="cropData">
         <q-select v-model="computedFieldId" :options="fields" label="FieldId"></q-select>
@@ -158,3 +163,4 @@ export default {
 }
 
 </script>
+>>>>>>> origin/9-correct
