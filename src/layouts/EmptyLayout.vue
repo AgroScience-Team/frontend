@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/localbranch
 <template>
     <q-layout view="hHh lpR fFf">
   
@@ -7,6 +10,7 @@
       </q-page-container>
   
     </q-layout>
+<<<<<<< HEAD
 =======
 <template>
     <q-layout view="hHh lpR fFf">
@@ -17,4 +21,6 @@
   
     </q-layout>
 >>>>>>> origin/9-correct
+=======
+>>>>>>> origin/localbranch
   </template>

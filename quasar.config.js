@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/localbranch
 /* eslint-env node */
 
 /*
@@ -31,8 +34,13 @@ module.exports = configure(function (/* ctx */) {
     // --> boot files are part of "main.js"
     // https://v2.quasar.dev/quasar-cli-vite/boot-files
     boot: [
+<<<<<<< HEAD
       
       'axios',
+=======
+      'axios',
+      'errorHandling',
+>>>>>>> origin/localbranch
     ],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css
@@ -44,7 +52,11 @@ module.exports = configure(function (/* ctx */) {
     extras: [
       // 'ionicons-v4',
       // 'mdi-v5',
+<<<<<<< HEAD
       // 'fontawesome-v6',
+=======
+      'fontawesome-v6',
+>>>>>>> origin/localbranch
       // 'eva-icons',
       // 'themify',
       // 'line-awesome',
@@ -58,7 +70,11 @@ module.exports = configure(function (/* ctx */) {
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#build
     build: {
       target: {
+<<<<<<< HEAD
         browser: [ 'es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1' ],
+=======
+        browser: ['es2019', 'edge88', 'firefox78', 'chrome87', 'safari13.1'],
+>>>>>>> origin/localbranch
         node: 'node16'
       },
 
@@ -81,7 +97,11 @@ module.exports = configure(function (/* ctx */) {
       // extendViteConf (viteConf) {},
       // viteVuePluginOptions: {},
 
+<<<<<<< HEAD
       
+=======
+
+>>>>>>> origin/localbranch
       // vitePlugins: [
       //   [ 'package-name', { ..options.. } ]
       // ]
@@ -108,7 +128,13 @@ module.exports = configure(function (/* ctx */) {
       // directives: [],
 
       // Quasar plugins
+<<<<<<< HEAD
       plugins: []
+=======
+      plugins: [
+        'Dialog'
+      ]
+>>>>>>> origin/localbranch
     },
 
     // animations: 'all', // --- includes all animations
@@ -130,7 +156,11 @@ module.exports = configure(function (/* ctx */) {
     // https://v2.quasar.dev/quasar-cli-vite/developing-ssr/configuring-ssr
     ssr: {
       // ssrPwaHtmlFilename: 'offline.html', // do NOT use index.html as name!
+<<<<<<< HEAD
                                           // will mess up SSR
+=======
+      // will mess up SSR
+>>>>>>> origin/localbranch
 
       // extendSSRWebserverConf (esbuildConf) {},
       // extendPackageJson (json) {},
@@ -141,7 +171,11 @@ module.exports = configure(function (/* ctx */) {
       // manualPostHydrationTrigger: true,
 
       prodPort: 9000, // The default port that the production server should use
+<<<<<<< HEAD
                       // (gets superseded if process.env.PORT is specified at runtime)
+=======
+      // (gets superseded if process.env.PORT is specified at runtime)
+>>>>>>> origin/localbranch
 
       middlewares: [
         'render' // keep this as last one
@@ -213,6 +247,7 @@ module.exports = configure(function (/* ctx */) {
     }
   }
 });
+<<<<<<< HEAD
 =======
 /* eslint-env node */
 
@@ -430,3 +465,5 @@ module.exports = configure(function (/* ctx */) {
   }
 });
 >>>>>>> origin/9-correct
+=======
+>>>>>>> origin/localbranch

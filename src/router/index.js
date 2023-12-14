@@ -1,7 +1,14 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { route } from 'quasar/wrappers'
 import { createRouter, createMemoryHistory, createWebHistory, createWebHashHistory } from 'vue-router'
 import routes from './routes'
+=======
+import { route } from 'quasar/wrappers'
+import { createRouter, createMemoryHistory, createWebHistory, createWebHashHistory } from 'vue-router'
+import routes from './routes'
+import { userStore } from 'src/usage';
+>>>>>>> origin/localbranch
 
 /*
  * If not building with SSR mode, you can
@@ -11,6 +18,10 @@ import routes from './routes'
  * async/await or return a Promise which resolves
  * with the Router instance.
  */
+<<<<<<< HEAD
+=======
+let routerinstance = null;
+>>>>>>> origin/localbranch
 
 export default route(function (/* { store, ssrContext } */) {
   const createHistory = process.env.SERVER
@@ -27,6 +38,7 @@ export default route(function (/* { store, ssrContext } */) {
     history: createHistory(process.env.VUE_ROUTER_BASE)
   })
 
+<<<<<<< HEAD
   return Router
 })
 =======
@@ -104,3 +116,38 @@ export default route(function (/* { store, ssrContext } */) {
 
 export { routerinstance };
 >>>>>>> origin/9-correct
+=======
+  routerinstance = Router;  //continue working with the same
+
+  function delay(milliseconds) {
+    return new Promise((resolve) => {
+      setTimeout(resolve, milliseconds);
+    });
+  }
+
+  routerinstance.beforeEach(async (to, from) => {
+    // console.log('TO: ', to);
+    // console.log('FROM: ', from);
+    // console.log(userStore.getState().access_token);
+    // console.log('getIsInit: ', userStore.getIsInitialized().value)
+    while (!userStore.getIsInitialized().value) {
+      await delay(10);
+    }
+    if (
+      // make sure the user is authenticated
+      !userStore.isAuthorized() &&
+      // ❗️ Avoid an infinite redirect
+      to.name !== "login" &&
+      to.name !== "reg" &&
+      to.name !== 'entry'
+    ) {
+      return { name: "login" };
+    }
+  });
+
+
+  return Router
+})
+
+export { routerinstance };
+>>>>>>> origin/localbranch

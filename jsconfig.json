@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/localbranch
 {
   "compilerOptions": {
     "baseUrl": ".",
@@ -37,6 +40,7 @@
     ".quasar",
     "node_modules"
   ]
+<<<<<<< HEAD
 =======
 {
   "compilerOptions": {
@@ -77,4 +81,6 @@
     "node_modules"
   ]
 >>>>>>> origin/9-correct
+=======
+>>>>>>> origin/localbranch
 }

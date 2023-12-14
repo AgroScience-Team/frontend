@@ -17,6 +17,10 @@ function parseerror(data) {
 
 function parseCodeError(error) {
     let msg = '';
+<<<<<<< HEAD
+=======
+    // console.log('ERROR', error)
+>>>>>>> origin/localbranch
     if (error.status === 401) {
         // clean the store; go to logout page
         userStore.clearAll();
@@ -43,7 +47,11 @@ export function postreg({ email, text_password, role }) {
             .then((response) => {
                 console.log(response);
                 const code = response.status;
+<<<<<<< HEAD
                 if (code === 201) {
+=======
+                if (code > 199 && code < 300) {
+>>>>>>> origin/localbranch
                     resolve(response.data);
                 } else {
                     reject(parseCodeError(response));
@@ -52,7 +60,11 @@ export function postreg({ email, text_password, role }) {
 
             )
             .catch((error) => {
+<<<<<<< HEAD
                 reject(error);
+=======
+                reject(parseCodeError(error.response));
+>>>>>>> origin/localbranch
             })
     }
 
@@ -75,19 +87,28 @@ export function postlog({ username, password }) {
             .then((response) => {
                 console.log(response);
                 const code = response.status;
+<<<<<<< HEAD
                 if (code === 200) {
+=======
+                if (code > 199 && code < 300) {
+>>>>>>> origin/localbranch
                     resolve(response.data);
                 } else {
                     reject(parseCodeError(response));
                 }
             })
             .catch((error) => {
+<<<<<<< HEAD
                 reject(error);
+=======
+                reject(parseCodeError(error.response));
+>>>>>>> origin/localbranch
             })
     })
 }
 
 
+<<<<<<< HEAD
 
 // export function postinter() {
 //     return new Promise((resolve, reject) => {
@@ -123,6 +144,8 @@ export function postlog({ username, password }) {
 // }
 
 
+=======
+>>>>>>> origin/localbranch
 // export function postworkers({ name, surname, patronymic, date_of_birth, phone_number }) {
 //     return new Promise((resolve, reject) => {
 //         const myrequest = {
@@ -146,6 +169,7 @@ export function postlog({ username, password }) {
 
 
 
+<<<<<<< HEAD
 export function postToServer(object, responseType = "json") {
     console.log("POST TO SERVER: ", object); // что передаем
 
@@ -154,11 +178,22 @@ export function postToServer(object, responseType = "json") {
         //     const tokenId = window.localStorage.getItem("pwa-tokenId");
 
         if (!access_tokentoken) { //хранить в локальном хранилище
+=======
+export function postToServer({ url, data, request, getParams }) {
+    console.log("POST TO SERVER: ", data); // что передаем
+
+    return new Promise((resolve, reject) => { //ассинхронное 
+        const { access_token } = userStore.getState();
+        let axiosFunc;
+
+        if (!access_token) { //хранить в локальном хранилище
+>>>>>>> origin/localbranch
             console.log("No tokens found");
             reject('no token');
             return;
         }
 
+<<<<<<< HEAD
         // const config = {
         //     headers: {
         //         Authorization: { "token": ["${token}", "${tokenId}"] },
@@ -186,3 +221,50 @@ export function postToServer(object, responseType = "json") {
             });
     });
 }
+=======
+        const config = {
+            headers: {
+                'Authorization': `Bearer ${access_token}`,
+                'Content-Type': 'application/json'
+            },
+            ...getParams
+        };
+
+        if (request === 'get') {
+            axiosFunc = axios.get(url, config);
+        } else if (request === 'post') {
+            axiosFunc = axios.post(url, data, config);
+        } else if (request === 'put') {
+            axiosFunc = axios.put(url, data, config)
+        } else if (request === 'delete') {
+            axiosFunc = axios.delete(url, config)
+        } else {
+            console.log('unknown Request Type');
+        }
+
+        axiosFunc
+            .then((response) => {
+                const code = response.status;
+                console.log("OBJECT: ", data);
+                console.log("RESPONSE: ", response);
+                if (code > 199 && code < 300) {
+                    console.log('RESULT: ', response.data);
+                    resolve(response.data);
+                } else {
+                    reject(parseCodeError(response));
+                }
+            })
+            .catch((error) => {
+                // console.log("ERR", error);
+                const errormsg = parseCodeError(error.response);
+                console.log(errormsg);
+                reject(errormsg);
+            });
+    });
+}
+
+
+// export function getFromServer(object){
+
+// }
+>>>>>>> origin/localbranch

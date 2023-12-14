@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/localbranch
 <template>
   <div class="fullscreen bg-blue text-white text-center q-pa-md flex flex-center">
     <div>
@@ -30,6 +33,7 @@ export default defineComponent({
   name: 'ErrorNotFound'
 })
 </script>
+<<<<<<< HEAD
 =======
 <template>
   <div class="fullscreen bg-blue text-white text-center q-pa-md flex flex-center">
@@ -63,3 +67,5 @@ export default defineComponent({
 })
 </script>
 >>>>>>> origin/9-correct
+=======
+>>>>>>> origin/localbranch

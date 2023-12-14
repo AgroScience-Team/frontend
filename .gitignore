@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/localbranch
 .DS_Store
 .thumbs.db
 node_modules
@@ -32,6 +35,7 @@ yarn-error.log*
 
 # local .env files
 .env.local*
+<<<<<<< HEAD
 =======
 .DS_Store
 .thumbs.db
@@ -101,3 +105,5 @@ yarn-error.log*
 # local .env files
 .env.local*
 >>>>>>> origin/9-correct
+=======
+>>>>>>> origin/localbranch

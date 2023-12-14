@@ -1,11 +1,20 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+import { userStore } from "src/usage";
+
+>>>>>>> origin/localbranch
 const routes = [
   {
     path: "/",
     component: () => import("layouts/EmptyLayout.vue"),
     children: [
       {
+<<<<<<< HEAD
         path: "",
+=======
+        path: "/",
+>>>>>>> origin/localbranch
         name: "entry",
         component: () => import("pages/EntryPage.vue"),
       },
@@ -45,6 +54,14 @@ const routes = [
         path: "workers",
         name: "workers",
         component: () => import("pages/WorkerPage.vue"),
+<<<<<<< HEAD
+=======
+        beforeEnter: (to, from) => {
+          if (userStore.getState().role !== 'organization') {
+            return false;
+          }
+        }
+>>>>>>> origin/localbranch
       },
       {
         path: "settings",
@@ -52,6 +69,7 @@ const routes = [
         component: () => import("pages/SettingsPage.vue"),
       },
       {
+<<<<<<< HEAD
         path: "worker_info",
         name: "worker_info",
         component: () => import("pages/Worker_info_page.vue")
@@ -60,6 +78,11 @@ const routes = [
         path: "organization_info",
         name: "organization_info",
         component: () => import("pages/Organization_info_page.vue")
+=======
+        path: "profile_info",
+        name: "profile_info",
+        component: () => import("pages/Profile_info_page.vue")
+>>>>>>> origin/localbranch
       },
       {
         path: "field_information",
@@ -78,6 +101,7 @@ const routes = [
 ];
 
 export default routes;
+<<<<<<< HEAD
 =======
 const routes = [
   {
@@ -184,3 +208,5 @@ const routes = [
 
 export default routes;
 >>>>>>> origin/9-correct
+=======
+>>>>>>> origin/localbranch

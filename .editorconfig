@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/localbranch
 root = true
 
 [*]
@@ -8,6 +11,7 @@ indent_size = 2
 end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
+<<<<<<< HEAD
 =======
 root = true
 
@@ -19,3 +23,5 @@ end_of_line = lf
 insert_final_newline = true
 trim_trailing_whitespace = true
 >>>>>>> origin/9-correct
+=======
+>>>>>>> origin/localbranch

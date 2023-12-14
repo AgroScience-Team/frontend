@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/localbranch
 {
   "name": "quasar-project",
   "version": "0.0.1",
@@ -17,6 +20,7 @@
   "dependencies": {
     "@quasar/extras": "^1.16.4",
     "axios": "^1.2.1",
+<<<<<<< HEAD
     "http-server": "^14.1.1",
     "quasar": "^2.6.0",
     "vue": "^3.0.0",
@@ -24,6 +28,16 @@
     "nodemon": "^2.0.15",
     "chart.js": "^4.4.0",
     "lodash-es": "^4.17.21"
+=======
+    "chart.js": "^4.4.0",
+    "http-server": "^14.1.1",
+    "idb-keyval": "^6.2.1",
+    "lodash-es": "^4.17.21",
+    "nodemon": "^2.0.15",
+    "quasar": "^2.6.0",
+    "vue": "^3.0.0",
+    "vue-router": "^4.0.0"
+>>>>>>> origin/localbranch
   },
   "devDependencies": {
     "@quasar/app-vite": "^1.3.0",
@@ -45,6 +59,7 @@
     "yarn": ">= 1.21.1"
   }
 }
+<<<<<<< HEAD
 =======
 {
   "name": "quasar-project",
@@ -96,3 +111,5 @@
   }
 }
 >>>>>>> origin/9-correct
+=======
+>>>>>>> origin/localbranch

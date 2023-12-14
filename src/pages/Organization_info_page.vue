@@ -4,12 +4,16 @@
                   class="my-sticky-colum-table"
                   flat bordered
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/localbranch
                   :rows="information"
                   :columns="columns"
                   row-key="label"
                   v-model:pagination="pagination"
                   hide-header
                   hide-bottom
+<<<<<<< HEAD
 =======
                   :rows="organizationData"
                   :columns="organizationColumns"
@@ -18,12 +22,17 @@
                   hide-bottom
                   hide-header
 >>>>>>> origin/9-correct
+=======
+>>>>>>> origin/localbranch
               />
           </div>
   </template>
       
   <script>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/localbranch
   export default {
     data() {
       return {
@@ -56,6 +65,7 @@
       };
     },
   }
+<<<<<<< HEAD
 =======
   import { onMounted, reactive } from 'vue';
   import axios from 'axios' ;
@@ -119,6 +129,8 @@
   }
 
 >>>>>>> origin/9-correct
+=======
+>>>>>>> origin/localbranch
   </script>
   
   <style lang="scss">

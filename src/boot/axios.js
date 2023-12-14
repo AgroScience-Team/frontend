@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/localbranch
 import { boot } from 'quasar/wrappers'
 import axios from 'axios'
 
@@ -23,6 +26,7 @@ export default boot(({ app }) => {
 })
 
 export { api }
+<<<<<<< HEAD
 =======
 import { boot } from 'quasar/wrappers'
 import axios from 'axios'
@@ -49,3 +53,5 @@ export default boot(({ app }) => {
 
 export { api }
 >>>>>>> origin/9-correct
+=======
+>>>>>>> origin/localbranch

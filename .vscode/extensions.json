@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/localbranch
 {
   "recommendations": [
     "dbaeumer.vscode-eslint",
@@ -13,6 +16,7 @@
     "dbaeumer.jshint",
     "ms-vscode.vscode-typescript-tslint-plugin"
   ]
+<<<<<<< HEAD
 =======
 {
   "recommendations": [
@@ -29,4 +33,6 @@
     "ms-vscode.vscode-typescript-tslint-plugin"
   ]
 >>>>>>> origin/9-correct
+=======
+>>>>>>> origin/localbranch
 }

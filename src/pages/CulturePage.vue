@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <template>
     <div>ТУТ КУЛЬТУРЫ</div>
 </template>
@@ -164,3 +165,8 @@ export default {
 
 </script>
 >>>>>>> origin/9-correct
+=======
+<template>
+    <div>ТУТ КУЛЬТУРЫ</div>
+</template>
+>>>>>>> origin/localbranch
