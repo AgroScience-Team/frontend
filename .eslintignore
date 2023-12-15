@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /dist
 /src-capacitor
 /src-cordova
@@ -5,3 +6,20 @@
 /node_modules
 .eslintrc.js
 /quasar.config.*.temporary.compiled*
+=======
+/dist
+/src-capacitor
+/src-cordova
+/.quasar
+/node_modules
+.eslintrc.js
+/quasar.config.*.temporary.compiled*
+
+/dist
+/src-capacitor
+/src-cordova
+/.quasar
+/node_modules
+.eslintrc.js
+/quasar.config.*.temporary.compiled*
+>>>>>>> origin/9-correct

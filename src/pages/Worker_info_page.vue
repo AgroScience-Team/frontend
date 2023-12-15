@@ -3,9 +3,15 @@
               <q-table
                   class="differnet-color"
                   flat bordered
+<<<<<<< HEAD
                   :rows="information"
                   :columns="columns"
                   row-key="label"
+=======
+                  :rows="workerData"
+                  :columns="workerColumns"
+                  row-key="id"
+>>>>>>> origin/9-correct
                   v-model:pagination="pagination"
                   hide-header
                   hide-bottom
@@ -14,6 +20,7 @@
   </template>
     
   <script>
+<<<<<<< HEAD
   export default {
     data() {
       return {
@@ -49,6 +56,66 @@
         }
       };
     },
+=======
+  import { onMounted, reactive } from 'vue';
+  import axios from 'axios';
+  import { userStore } from 'src/usage';
+
+  export default {
+    name: 'Worker_info_page',
+    setup() {
+      const workerData = reactive([]);
+      const workerColumns = reactive([
+        { name: 'key', field: 'key', align: 'center', style: 'width: 500px'},
+        { name: 'value', field: 'value', align: 'left'}
+      ]);
+
+      onMounted(async () => {
+            const accessToken = userStore.state.access_token;
+
+            if (!accessToken) {
+                console.log("No access token available");
+                return;
+            }
+        try {
+                const response = await axios.get('http://localhost:8080/api/profiles/workers?user_id=3', {
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                const data = response.data;
+                console.log(response.data);
+                return data;
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        
+        try {
+          if(data) {
+            workerData.push(
+              { key: 'ID', value: data.id },
+              { key: 'User ID', value: data.user_id },
+              { key: 'Name', value: data.name },
+              { key: 'Surname', value: data.surname },
+              { key: 'Patronymic', value: data.patronymic },
+              { key: 'Date of birth', value: data.date_of_birth },
+              { key: 'Phone Number', value: data.phone_number },
+            )
+          }
+        } catch (error) {
+          console.error('Wrong Api', error);
+        };
+      });
+    return {
+        workerData,
+        workerColumns,
+        pagination: {
+          rowsPerPage: 10
+        }
+      }
+    }
+>>>>>>> origin/9-correct
   }
   </script>
   
