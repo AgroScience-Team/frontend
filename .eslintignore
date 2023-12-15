@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/localbranch
 /dist
 /src-capacitor
 /src-cordova
@@ -6,6 +9,7 @@
 /node_modules
 .eslintrc.js
 /quasar.config.*.temporary.compiled*
+<<<<<<< HEAD
 =======
 /dist
 /src-capacitor
@@ -23,3 +27,5 @@
 .eslintrc.js
 /quasar.config.*.temporary.compiled*
 >>>>>>> origin/9-correct
+=======
+>>>>>>> origin/localbranch

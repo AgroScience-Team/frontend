@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/localbranch
 # DigitalTwin Frontend
 
 ## Как развернуть приложение для разработки?
@@ -27,6 +30,7 @@ http://localhost:9000/#/
 ```sh
 docker-compose down  
 ``` 
+<<<<<<< HEAD
 =======
 # DigitalTwin Frontend
 
@@ -57,3 +61,5 @@ http://localhost:9000/#/
 docker-compose down  
 ``` 
 >>>>>>> origin/9-correct
+=======
+>>>>>>> origin/localbranch

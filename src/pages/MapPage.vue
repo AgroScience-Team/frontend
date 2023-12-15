@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/localbranch
 <template>
   <div style="width: 100%; height: 100%">
     <div id="map"></div>
@@ -37,6 +40,7 @@ export default {
   width: 100%;
 }
 </style>
+<<<<<<< HEAD
 =======
 <template>
   <div class="map-container">
@@ -151,3 +155,5 @@ export default {
 }
 </style>
 >>>>>>> origin/9-correct
+=======
+>>>>>>> origin/localbranch

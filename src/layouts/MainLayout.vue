@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/localbranch
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header elevated class="bg-secondary">
@@ -12,12 +15,21 @@
         <q-avatar icon="account_circle" size="xl" font-size="50px" text-color="primary">
           <q-menu>
             <q-list>
+<<<<<<< HEAD
               <q-item clickable v-close-popup @click="goToWoker">
                 <q-item-section>Работник</q-item-section>
               </q-item>
               <q-item clickable v-close-popup @click="goToOrganization">
                 <q-item-section>Организация</q-item-section>
               </q-item>
+=======
+              <q-item clickable v-close-popup @click="goToProfile">
+                <q-item-section>Профиль</q-item-section>
+              </q-item>
+              <!-- <q-item clickable v-close-popup @click="goToOrganization">
+                <q-item-section>Организация</q-item-section>
+              </q-item> -->
+>>>>>>> origin/localbranch
             </q-list>
           </q-menu>
         </q-avatar>
@@ -29,8 +41,11 @@
     <q-drawer :model-value="true" show-if-above :mini="miniOpen" bordered class="bg-primary text-white" :width="240"
       behavior="desktop">
 
+<<<<<<< HEAD
     <q-drawer :model-value="miniOpen" bordered class="bg-primary text-white" :width="240">
 
+=======
+>>>>>>> origin/localbranch
       <q-list>
         <q-item>
           <q-item-section>
@@ -38,7 +53,11 @@
           </q-item-section>
         </q-item>
 
+<<<<<<< HEAD
         <EssentialLink v-for="link in essentialLinks" :key="link.title" v-bind="link" />
+=======
+        <EssentialLink v-for="link in linksList" :key="link.title" v-bind="link" />
+>>>>>>> origin/localbranch
       </q-list>
     </q-drawer>
 
@@ -49,6 +68,7 @@
 </template>
 
 <script>
+<<<<<<< HEAD
 import { ref, watch, onMounted } from 'vue'
 import EssentialLink from 'components/EssentialLink.vue'
 import { useRoute } from 'vue-router'
@@ -91,6 +111,14 @@ const linksList = [
     link: '/'
   },
 ]
+=======
+import { ref, watch, onMounted, computed } from 'vue'
+import EssentialLink from 'components/EssentialLink.vue'
+import { useRoute, useRouter } from 'vue-router'
+import { userStore } from 'src/usage'
+
+
+>>>>>>> origin/localbranch
 
 export default {
   name: 'MainLayout',
@@ -100,6 +128,7 @@ export default {
   },
 
 
+<<<<<<< HEAD
   methods: {
     goToWoker(){
       this.$router.push('/worker_info');
@@ -109,11 +138,62 @@ export default {
     }
   },
 
+=======
+>>>>>>> origin/localbranch
 
   setup() {
     const route = useRoute();
     const miniOpen = ref(false);
     const pageTitle = ref('');
+<<<<<<< HEAD
+=======
+    const router = useRouter();
+
+    const linksList = computed(() =>
+      [
+        {
+          title: 'Карта',
+          icon: 'o_map',
+          link: '/map'
+        },
+
+        {
+          title: 'Культуры',
+          icon: 'o_spa',
+          link: '/culture'
+        },
+
+        {
+          title: 'Севооборот',
+          icon: 'o_compost',
+          link: '/rotation'
+        },
+
+        {
+          title: 'Сотрудники',
+          icon: 'o_manage_accounts',
+          hide: userStore.getState().role === 'worker',
+          link: '/workers'
+        },
+
+        {
+          title: 'Настройки',
+          icon: 'o_settings',
+          link: '/settings'
+        },
+
+        {
+          title: 'Выход',
+          icon: 'o_logout',
+          action: () => {
+            userStore.clearAll();
+          },
+          link: '/'
+        },
+      ]
+    )
+
+>>>>>>> origin/localbranch
 
     const setPageTitle = (linkTitle) => {
       pageTitle.value = linkTitle;
@@ -124,12 +204,26 @@ export default {
       updatePageTitle();
     });
 
+<<<<<<< HEAD
+=======
+    function goToProfile() {
+      router.push({ name: 'profile_info' });
+    };
+    // function goToOrganization() {
+    //   router.push('/organization_info');
+    // };
+
+>>>>>>> origin/localbranch
     watch(() => route.path, () => {
       updatePageTitle();
     });
 
     const updatePageTitle = () => {
+<<<<<<< HEAD
       const foundLink = linksList.find(link => link.link === route.path);
+=======
+      const foundLink = linksList.value.find(link => link.link === route.path);
+>>>>>>> origin/localbranch
       if (foundLink) {
         if (foundLink.title === 'Сотрудники') {
           setPageTitle('Мои сотрудники');
@@ -139,6 +233,7 @@ export default {
       }
     };
 
+<<<<<<< HEAD
     return {
       essentialLinks: linksList,
       miniOpen,
@@ -146,6 +241,18 @@ export default {
       toggleLeftDrawer() {
         miniOpen.value = !miniOpen.value;
       }
+=======
+
+    return {
+      linksList,
+      miniOpen,
+
+      pageTitle,
+      toggleLeftDrawer() {
+        miniOpen.value = !miniOpen.value;
+      },
+      goToProfile,
+>>>>>>> origin/localbranch
     };
   }
 }
@@ -162,6 +269,7 @@ export default {
   color: #151C28;
 }
 </style>
+<<<<<<< HEAD
 =======
 <template>
   <q-layout view="lHh Lpr lFf">
@@ -333,3 +441,5 @@ export default {
 }
 </style>
 >>>>>>> origin/9-correct
+=======
+>>>>>>> origin/localbranch

@@ -10,11 +10,17 @@ services:
       - .:/app
       - /app/node_modules
 <<<<<<< HEAD
+<<<<<<< HEAD
     
 =======
+=======
+>>>>>>> origin/localbranch
 
 networks:
   default:
     external:
       name: agronetwork
+<<<<<<< HEAD
 >>>>>>> origin/9-correct
+=======
+>>>>>>> origin/localbranch

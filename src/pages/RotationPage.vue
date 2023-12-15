@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/localbranch
 <template v-for="row in rows" :key="`${row.id}-${row.filed_id}`">
     <div class="q-pa-md">
       <q-input v-model="startDate" placeholder="Дата Начала">
@@ -172,6 +175,7 @@ export default {
   }
 }
 </style>
+<<<<<<< HEAD
 =======
 <template v-for="row in rows" :key="`${row.id}-${row.filed_id}`">
     <div class="q-pa-md">
@@ -394,3 +398,5 @@ export default {
 }
 </style>
 >>>>>>> origin/9-correct
+=======
+>>>>>>> origin/localbranch

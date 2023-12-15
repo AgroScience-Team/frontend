@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/localbranch
 {
   "editor.bracketPairColorization.enabled": true,
   "editor.guides.bracketPairs": true,
@@ -12,6 +15,7 @@
     "javascriptreact",
     "typescript",
     "vue"
+<<<<<<< HEAD
   ]
 =======
 {
@@ -32,4 +36,10 @@
     "editor.defaultFormatter": "vscode.typescript-language-features"
   }
 >>>>>>> origin/9-correct
+=======
+  ],
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  }
+>>>>>>> origin/localbranch
 }

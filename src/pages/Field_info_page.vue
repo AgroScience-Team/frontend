@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/localbranch
 <template>
     <div class="q-pa-md">
         <div class="row">
@@ -231,6 +234,7 @@ input[type="file"] {
   display: none;
 }
 
+<<<<<<< HEAD
 =======
 <template>
     <div class="q-pa-md">
@@ -672,4 +676,6 @@ export default {
 }
 
 >>>>>>> origin/9-correct
+=======
+>>>>>>> origin/localbranch
 </style>

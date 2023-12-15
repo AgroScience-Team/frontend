@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <template>
   <q-item
     clickable
@@ -10,6 +11,13 @@
   <q-item-section v-if="icon" avatar>
     <q-icon :name="icon" />
   </q-item-section>
+=======
+<template>
+  <q-item clickable tag="a" :to="link" :class="{ 'menu': isActive }" class="myclass" @click="action" v-if="!hide">
+    <q-item-section v-if="icon" avatar>
+      <q-icon :name="icon" />
+    </q-item-section>
+>>>>>>> origin/localbranch
 
     <q-item-section>
       <q-item-label>{{ title }}</q-item-label>
@@ -36,12 +44,28 @@ export default defineComponent({
       type: String,
       default: ''
     },
+<<<<<<< HEAD
+=======
+    action: {
+      type: Function,
+      default: () => { }
+    },
+    hide: {
+      type: Boolean,
+      default: false,
+    }
+>>>>>>> origin/localbranch
   },
 
   setup(props) {
     const route = useRoute()
     const isActive = computed(() => route.fullPath === props.link)
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> origin/localbranch
     return {
       isActive
     }
@@ -62,15 +86,24 @@ export default defineComponent({
   left: 0;
   top: 0;
   bottom: 0;
+<<<<<<< HEAD
   width: 6px; 
   background-color: #5EA7FD;
 }
 
 .myclass{
+=======
+  width: 6px;
+  background-color: #5EA7FD;
+}
+
+.myclass {
+>>>>>>> origin/localbranch
   font-family: 'Arial';
   font-size: 20px;
 }
 </style>
+<<<<<<< HEAD
 =======
 <template>
   <q-item clickable tag="a" :to="link" :class="{ 'menu': isActive }" class="myclass">
@@ -139,3 +172,5 @@ export default defineComponent({
 }
 </style>
 >>>>>>> origin/9-correct
+=======
+>>>>>>> origin/localbranch

@@ -1,10 +1,14 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/localbranch
 <template>
     <div style="height:100vh;">
         <div class="upper-bg"> </div>
 
         <div class="lower-bg"> </div>
 
+<<<<<<< HEAD
         <q-card class="absolute-center container ">
             <q-card-section horizontal class="justify-around">
                 <q-img class="col-3 q-my-md tractor" src="~assets/worker.jpg">
@@ -21,6 +25,28 @@
                         <q-btn text-color="white" size="lg" @click="readyClick" class="my-btn">войти</q-btn>
                     </q-card>
                 </q-card-section>
+=======
+        <q-card class="container-card">
+            <q-card-section horizontal style="height:100%">
+                <q-img class="gt-xs col-3" src="~assets/worker.jpg">
+                </q-img>
+
+                <div class="main-card q-mx-md q-my-sm">
+                    <div class=" text-h4 text-center register-text">Вход</div>
+                    <q-card class="sub-card" flat>
+                        <q-card-section class="col-12 ">
+                            <q-card-section class="q-px-none">
+                                <q-input filled label="Email" type="email" class="q-my-sm" v-model="email"></q-input>
+                                <q-input filled label="Пароль" type="password" class="q-my-sm" v-model="password"
+                                    @keyup.enter="readyClick"></q-input>
+                            </q-card-section>
+                        </q-card-section>
+                        <q-card-actions>
+                            <q-btn @click="readyClick" class="ok-button full-width">Войти</q-btn>
+                        </q-card-actions>
+                    </q-card>
+                </div>
+>>>>>>> origin/localbranch
             </q-card-section>
         </q-card>
 
@@ -29,11 +55,21 @@
 
 <script>
 import { ref } from 'vue';
+<<<<<<< HEAD
+=======
+import { postlog } from '../axiosRequest'
+import { userStore } from '../usage'
+import { useRouter } from "vue-router";
+>>>>>>> origin/localbranch
 
 export default {
     setup() {
         const email = ref('');
         const password = ref('');
+<<<<<<< HEAD
+=======
+        const router = useRouter();
+>>>>>>> origin/localbranch
 
         function readyClick() {
             console.log(email);
@@ -41,6 +77,20 @@ export default {
             if (!email.value.trim() || !password.value.trim()) {
                 throw new Error('не все данные введены');
             }
+<<<<<<< HEAD
+=======
+
+            postlog({ username: email.value, password: password.value })
+                .then((myresponse) => {
+                    const { access_token, token_type } = myresponse;
+                    userStore.updateAll({ access_token, token_type, email: email.value });
+                    router.push('/map');
+                })
+                .catch((myerror) => {
+                    console.error(myerror);
+                    userStore.setError(myerror);
+                })
+>>>>>>> origin/localbranch
         }
         return {
             email, password,
@@ -53,6 +103,7 @@ export default {
 }
 </script>
 
+<<<<<<< HEAD
 <style scoped>
 .upper-bg {
     background-color: rgba(192, 240, 192, 0.333);
@@ -472,3 +523,119 @@ export default {
 }
 </style>
 >>>>>>> origin/9-correct
+=======
+
+<style scoped>
+.container-card {
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0px;
+    background: none;
+    width: 100vw;
+}
+
+.main-card {
+    height: 100%;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.sub-card {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 40%;
+}
+
+.upper-bg {
+    background-color: rgba(192, 240, 192, 0.300);
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.lower-bg {
+    background-color: rgba(125, 186, 125, 0.600);
+    width: 100%;
+    height: 0%;
+}
+
+.register-text {
+    height: 200px;
+    line-height: 200px;
+}
+
+.ok-button {
+    background-color: rgb(192, 240, 192);
+
+}
+
+
+
+@media (min-width: 600px) {
+    .container-card {
+        height: 70vh;
+        top: 15vh;
+        left: 5vw;
+        width: 90vw;
+        background-color: white;
+    }
+
+    .sub-card {
+        height: calc(100% - 100px);
+    }
+
+    .upper-bg {
+        height: 60%;
+    }
+
+    .lower-bg {
+        height: 40%
+    }
+
+    .register-text {
+        height: 100px;
+        line-height: 100px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .container-card {
+        height: 70vh;
+        width: 65vw;
+        top: 15vh;
+        left: 15.5vw;
+    }
+}
+
+@media (min-width: 1300px) {
+    .container-card {
+        width: 60vw;
+        left: 20vw;
+    }
+
+    .ok-button {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 1500px) {
+    .container-card {
+        width: 50vw;
+        left: 25vw;
+    }
+}
+
+@media (max-height: 400px) {
+    .container-card {
+        height: 100vh;
+        top: 0;
+        left: 0;
+        width: 100vw;
+    }
+
+
+}
+</style>
+>>>>>>> origin/localbranch

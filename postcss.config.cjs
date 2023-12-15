@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/localbranch
 /* eslint-disable */
 // https://github.com/michael-ciniawsky/postcss-load-config
 
@@ -26,6 +29,7 @@ module.exports = {
     // require('postcss-rtlcss')
   ]
 }
+<<<<<<< HEAD
 =======
 /* eslint-disable */
 // https://github.com/michael-ciniawsky/postcss-load-config
@@ -55,3 +59,5 @@ module.exports = {
   ]
 }
 >>>>>>> origin/9-correct
+=======
+>>>>>>> origin/localbranch
