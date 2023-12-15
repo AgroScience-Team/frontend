@@ -1,5 +1,17 @@
 # DigitalTwin Frontend
 
+## Главная страница
+
+![home_page](https://github.com/AgroScience-Team/frontend/blob/localbranch/docs/home_page.jpg)
+
+## Карта
+
+![map_page](https://github.com/AgroScience-Team/frontend/blob/localbranch/docs/map_page.jpg)
+
+## Настройки профиля
+
+![settings_page](https://github.com/AgroScience-Team/frontend/blob/localbranch/docs/settings_page.jpg)
+
 ## Как развернуть приложение для разработки?
 
 1. Установить [docker](https://docs.docker.com/install/overview/) и [docker-compose](https://docs.docker.com/compose/install/)
